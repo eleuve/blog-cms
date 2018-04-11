@@ -15,7 +15,11 @@ while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         <h2><?php echo $post["titulo"]; ?></h2>
         <h3><?php echo $post["entradilla"]; ?></h3>
         <?php echo $post["fecha"]; ?>
-        <p><?php echo $post["contenido"]; ?></p>      
+        
+        <img src="uploads/<?php echo $post["imagen"] ?>" width="200">
+
+        <p><?php echo $post["contenido"]; ?></p>
+        
     </div>
     <?php
 }
