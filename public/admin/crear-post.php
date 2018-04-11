@@ -2,13 +2,14 @@
 // IF que solo se ejecuta si hay POST enviar (es el submit input)
 if (isset($_POST["enviar"])) {
     /**
-     * @todo Asegurarnos que las 5 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
+     * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
      */
     $titulo = $_POST["titulo"];
     $entradilla = $_POST["entradilla"];
     $file = $_FILES["imagen"];
     $html = $_POST["entrada"];
     $esPublico = "false";
+    $altimagen = $_POST["altimagen"];
 
     if (isset($_POST["publico"])) {
         if ($_POST["publico"] == "público") {
@@ -33,7 +34,7 @@ if (isset($_POST["enviar"])) {
 
     // Preparamos el SQL
     $sql = sprintf(
-        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `categoria`, `imagen`, `activo`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s)",
+        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `categoria`, `imagen`, `activo`, `altimagen`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s')",
         "NULL",
         $titulo,
         $entradilla,
@@ -41,7 +42,8 @@ if (isset($_POST["enviar"])) {
         $fechaHoy,
         "Categoria..",
         $file["name"],
-        $esPublico
+        $esPublico,
+        $altimagen
     );
 
     // Ejecutamos el SQL con la respectiva conexion ($con)
@@ -53,7 +55,8 @@ if (isset($_POST["enviar"])) {
     // si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
     $mensaje = "Post creado correctamente: " . $_POST["titulo"];
     if (mysqli_errno($con)) {
-        $mensaje = "Intentelo de nuevo mas tarde o contacte con el administrador";
+        print_r(mysqli_error($con));
+        $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
     }
 
     echo "<h1>" . $mensaje . "</h1>";
@@ -66,18 +69,21 @@ if (isset($_POST["enviar"])) {
 
 <form action="crear-post.php" method="post" enctype="multipart/form-data">
 	<label for="">Título:</label>
-	<input type="text" name="titulo">
+	<input type="text" name="titulo"><br />
 
 	<label for="">Entradilla:</label>
-	<input type="text" name="entradilla">
+	<input type="text" name="entradilla"><br />
 
 	<label for="">Imagen:</label>
-	<input type="file" name="imagen" />
+	<input type="file" name="imagen" /><br />
+
+    <label for="">Alt de la imagen:</label>
+    <input type="text" name="altimagen" /><br />
 
 	<label for="">Entrada:</label>
-	<textarea name="entrada" id="" cols="30" rows="40"></textarea>
+	<textarea name="entrada" id="" cols="30" rows="40"></textarea><br />
 
-	<input type="checkbox" name="publico" value="público" name="publico">Público<br>
+	<input type="checkbox" name="publico" value="público" name="publico">Público<br><br />
 
 	<input type="submit" value="Enviar" name="enviar">
 </form>
