@@ -1,3 +1,3 @@
 <?php
 
-echo 'laura was here';
+die('parte privada, no deberias estar aqui :)');
