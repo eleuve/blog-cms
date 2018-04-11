@@ -1,5 +1,5 @@
 <?php
-// IF que solo se ejecuta si hay POST titulo
+// IF que solo se ejecuta si hay POST enviar (es el submit input)
 if (isset($_POST["enviar"])) {
     echo "<h1>Hay que crear un post con titulo: " . $_POST["titulo"] . "</h1>";
 }
