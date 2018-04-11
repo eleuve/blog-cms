@@ -1,7 +1,16 @@
 <?php
 // IF que solo se ejecuta si hay POST enviar (es el submit input)
 if (isset($_POST["enviar"])) {
-    echo "<h1>Hay que crear un post con titulo: " . $_POST["titulo"] . "</h1>";
+    // guardamos el archivo que sube en la carpeta /uploads
+    $file = $_FILES["imagen"];
+
+    // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
+    $imageBinaryData = file_get_contents($file["tmp_name"]);
+
+    // Crea el archivo en uploads, require 2 cosas: nombre de archivo, contenido
+    file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
+
+    echo "<h1>Ok, echa un vistazo en la carpeta /uploads/ a ver si esta el archivo:" . $file["name"] . "</h1>";
 }
 
 ?>
