@@ -17,7 +17,8 @@ if (isset($_GET["id"])) {
         $file = $row["imagen"];
         $html = $row["contenido"];
         $esPublico = $row["activo"];
-        $altimagen = $row["altimagen"];     
+        $altimagen = $row["altimagen"];
+        $idcategoria = $row["idcategoria"];     
     }
     
 
@@ -33,6 +34,8 @@ if (isset($_GET["id"])) {
             $html = $_POST["entrada"];
             $esPublico = "false";
             $altimagen = $_POST["altimagen"];
+            $idcategoria = $_POST["categoria"]; 
+
 
             if (isset($_POST["publico"])) {
                 if ($_POST["publico"] == "público") {
@@ -44,11 +47,12 @@ if (isset($_GET["id"])) {
         // Preparamos el SQL
         $sql = sprintf(
             "UPDATE post 
-             SET titulo='%s', entradilla='%s', contenido='%s', imagen='%s', activo=%s, altimagen='%s'
+             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s'
              WHERE id='$id'",
             $titulo,
             $entradilla,
             $html,
+            $idcategoria,
             $file,
             $esPublico,
             $altimagen
@@ -80,6 +84,23 @@ if (isset($_GET["id"])) {
 <h1>Editar post "<?=$titulo?>"</h1>
 
 <form action="modificar-post.php" method="post" enctype="multipart/form-data">
+
+    <label for="">Categoría</label>
+    <select name="categoria">
+        <?php
+        // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
+        $resultado = mysqli_query($con, "SELECT * FROM categoria");
+        while ($categoria = mysqli_fetch_array(
+            $resultado,
+            MYSQLI_ASSOC
+        )) {
+            if($categoria==$idcategoria){
+                ?><option value="<?= $categoria["idcategoria"] ?>"><?= $categoria["nombre"] ?></option>
+        <?php
+            }
+        }
+        ?>
+    </select><br/>
     <label for="">Título:</label>
     <input type="text" name="titulo" value="<?=$titulo?>"><br />
 
