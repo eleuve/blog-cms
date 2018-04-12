@@ -10,6 +10,7 @@ if (isset($_GET["id"])) {
     // Ejecutamos el SQL con la respectiva conexion ($con)
     $resultadoDelQuery = mysqli_query($con, $sql);
 
+    //Metemos en variables los resultados de la consulta
     while($row = $resultadoDelQuery->fetch_assoc()) {
         $titulo = $row["titulo"];
         $entradilla = $row["entradilla"];
@@ -18,54 +19,37 @@ if (isset($_GET["id"])) {
         $esPublico = $row["activo"];
         $altimagen = $row["altimagen"];     
     }
-
-
-
     
 
-// IF que solo se ejecuta si hay POST enviar (es el submit input)
-    if (isset($_POST["enviar"])) {
+    // IF que solo se ejecuta si hay POST editar (es el submit input)
+    if (isset($_POST["editar"])) {
         /**
          * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
          */
-        $titulo = $_POST["titulo"];
-        $entradilla = $_POST["entradilla"];
-        $file = $_FILES["imagen"];
-        $html = $_POST["entrada"];
-        $esPublico = "false";
-        $altimagen = $_POST["altimagen"];
+            $id = $_GET["id"];
+            $titulo = $_POST["titulo"];
+            $entradilla = $_POST["entradilla"];
+            $file = $_FILES["imagen"];
+            $html = $_POST["entrada"];
+            $esPublico = "false";
+            $altimagen = $_POST["altimagen"];
 
-        if (isset($_POST["publico"])) {
-            if ($_POST["publico"] == "público") {
-                $esPublico = "true";
+            if (isset($_POST["publico"])) {
+                if ($_POST["publico"] == "público") {
+                 $esPublico = "true";
+                }
             }
-        }
 
-        /** Guardado del archivo en la carpeta /uploads */
-        // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
-        $imageBinaryData = file_get_contents($file["tmp_name"]);
-        // Crea el archivo en uploads, require 2 cosas: nombre de archivo, contenido
-        file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
-
-        /** Como todo es correcto (validado empty & injections), ejecutamos un INSERT... */
-
-        // Necesitamos la variable que nos facilita conexion de la base de datos: $con
-        require_once "../../DB/conexion.php";
-
-        // Preparamos la fecha para el SQL
-        $datetimeHoy = new \Datetime("now");
-        $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
 
         // Preparamos el SQL
         $sql = sprintf(
-            "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `categoria`, `imagen`, `activo`, `altimagen`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s')",
-            "NULL",
+            "UPDATE post 
+             SET titulo='%s', entradilla='%s', contenido='%s', imagen='%s', activo=%s, altimagen='%s'
+             WHERE id='$id'",
             $titulo,
             $entradilla,
             $html,
-            $fechaHoy,
-            "Categoria..",
-            $file["name"],
+            $file,
             $esPublico,
             $altimagen
         );
@@ -77,7 +61,7 @@ if (isset($_GET["id"])) {
         // mostrar un mensaje rollo 'Intentelo de nuevo mas tarde o contacte con el administrador'
 
         // si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
-        $mensaje = "Post creado correctamente: " . $_POST["titulo"];
+        $mensaje = "Post modificado correctamente: " . $_POST["titulo"];
         if (mysqli_errno($con)) {
             print_r(mysqli_error($con));
             $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
@@ -92,6 +76,8 @@ if (isset($_GET["id"])) {
 
 ?>
 
+
+<h1>Editar post "<?=$titulo?>"</h1>
 
 <form action="modificar-post.php" method="post" enctype="multipart/form-data">
     <label for="">Título:</label>
@@ -111,7 +97,7 @@ if (isset($_GET["id"])) {
 
     <input type="checkbox" name="publico" value="público" name="publico">Público<br><br />
 
-    <input type="submit" value="Enviar" name="enviar">
+    <input type="submit" value="Editar post" name="editar">
 </form>
 
 
