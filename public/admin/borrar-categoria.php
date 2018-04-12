@@ -30,4 +30,7 @@ if (isset($_GET["id"])) {
 
 ?>
 
+<a href="gestionCategorias.php">VOLVER A GESTIÓN DE CATEGORÍAS</a><br />
+
+
 

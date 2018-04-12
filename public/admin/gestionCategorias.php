@@ -14,6 +14,9 @@ include_once '../../DB/conexion.php';
 <br /><br /><br />
 <hr />
 
+<a href="gestion.php">VOLVER AL MENÚ PRINCIPAL</a><br />
+
+
 <a href="crear-categoria.php">CREAR UNA NUEVA CATEGORÍA</a>
 
 <?php

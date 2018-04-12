@@ -13,27 +13,8 @@ if (isset($_POST["enviar"])) {
     /**
      * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
      */
-    $idCategoria = $_POST["categoria"];
-    $titulo = $_POST["titulo"];
-    $entradilla = $_POST["entradilla"];
-    $file = $_FILES["imagen"];
-    $html = $_POST["entrada"];
-    $esPublico = "false";
-    $altimagen = $_POST["altimagen"];
-
-    if (isset($_POST["publico"])) {
-        if ($_POST["publico"] == "público") {
-            $esPublico = "true";
-        }
-    }
-
-    /** Guardado del archivo en la carpeta /uploads */
-    // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
-    $imageBinaryData = file_get_contents($file["tmp_name"]);
-    // Crea el archivo en uploads, require 2 cosas: nombre de archivo, contenido
-    file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
-
-    /** Como todo es correcto (validado empty & injections), ejecutamos un INSERT... */
+    $nombre = $_POST["nombre"];
+    $url = $_POST["url"];
 
     // Preparamos la fecha para el SQL
     $datetimeHoy = new \Datetime("now");
@@ -41,16 +22,11 @@ if (isset($_POST["enviar"])) {
 
     // Preparamos el SQL
     $sql = sprintf(
-        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s')",
+        "INSERT INTO `categoria` (`idcategoria`, `nombre`, `slug`, `fecha`) VALUES (%s, '%s', '%s', '%s');",
         "NULL",
-        $titulo,
-        $entradilla,
-        $html,
-        $fechaHoy,
-        $idCategoria,
-        $file["name"],
-        $esPublico,
-        $altimagen
+        $nombre,
+        $url,
+        $fechaHoy
     );
 
     // Ejecutamos el SQL con la respectiva conexion ($con)
@@ -60,7 +36,7 @@ if (isset($_POST["enviar"])) {
     // mostrar un mensaje rollo 'Intentelo de nuevo mas tarde o contacte con el administrador'
 
     // si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
-    $mensaje = "Post creado correctamente: " . $_POST["titulo"];
+    $mensaje = "Categoría creada correctamente: " . $_POST["nombre"];
     if (mysqli_errno($con)) {
         print_r(mysqli_error($con));
         $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
@@ -74,39 +50,17 @@ if (isset($_POST["enviar"])) {
 
 ?>
 
-<a href="dashboard.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
+<a href="gestionCategorias.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
 
-<form action="crear-post.php" method="post" enctype="multipart/form-data">
-    <label for="">Categoría</label>
-    <select name="categoria">
-        <?php
-        // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
-        $resultado = mysqli_query($con, "SELECT * FROM categoria");
-        while ($categoria = mysqli_fetch_array(
-            $resultado,
-            MYSQLI_ASSOC
-        )) {
-            ?><option value="<?= $categoria["idcategoria"] ?>"><?= $categoria["nombre"] ?></option><?php
-        }
-        ?>
-    </select><br/>
+<h1>Crear categoría</h1>
 
-    <label for="">Título:</label>
-    <input type="text" name="titulo"><br/>
+<form action="crear-categoria.php" method="post" enctype="multipart/form-data">
 
-    <label for="">Entradilla:</label>
-    <input type="text" name="entradilla"><br/>
+    <label for="">Nombre:</label>
+    <input type="text" name="nombre"><br/>
 
-    <label for="">Imagen:</label>
-    <input type="file" name="imagen"/><br/>
-
-    <label for="">Alt de la imagen:</label>
-    <input type="text" name="altimagen"/><br/>
-
-    <label for="">Entrada:</label>
-    <textarea name="entrada" id="" cols="30" rows="40"></textarea><br/>
-
-    <input type="checkbox" name="publico" value="público" name="publico">Público<br><br/>
+    <label for="">Url:</label>
+    <input type="text" name="url"><br/>
 
     <input type="submit" value="Enviar" name="enviar">
 </form>
