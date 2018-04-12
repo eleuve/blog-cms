@@ -27,36 +27,55 @@ if (isset($_GET["id"])) {
         /**
          * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
          */
-            $id = $_GET["id"];
-            $titulo = $_POST["titulo"];
-            $entradilla = $_POST["entradilla"];
-            $file = $_FILES["imagen"];
-            $html = $_POST["entrada"];
-            $esPublico = "false";
-            $altimagen = $_POST["altimagen"];
-            $idcategoria = $_POST["categoria"]; 
+        $id = $_GET["id"];
+        $titulo = $_POST["titulo"];
+        $entradilla = $_POST["entradilla"];
+        $file = $_FILES["imagen"];
+        $html = $_POST["entrada"];
+        $esPublico = "false";
+        $altimagen = $_POST["altimagen"];
+        $idcategoria = $_POST["categoria"];
 
 
-            if (isset($_POST["publico"])) {
-                if ($_POST["publico"] == "público") {
-                 $esPublico = "true";
-                }
+        if (isset($_POST["publico"])) {
+            if ($_POST["publico"] == "público") {
+             $esPublico = "true";
             }
+        }
 
-
-        // Preparamos el SQL
-        $sql = sprintf(
-            "UPDATE post 
+        // Si hay nuevo archivo
+        if ($file["size"] > 0) {
+            // 1) Borrar el anterior archivo con unlink()
+            // 2) Guardar el nuevo archivo en /uploads
+            // 3) Preparar el SQL que contiene el nuevo file["name"]
+            $sql = sprintf(
+                "UPDATE post 
              SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s'
-             WHERE id='$id'",
-            $titulo,
-            $entradilla,
-            $html,
-            $idcategoria,
-            $file,
-            $esPublico,
-            $altimagen
-        );
+             WHERE idpost=%s",
+                $titulo,
+                $entradilla,
+                $html,
+                $idcategoria,
+                $file["name"],
+                $esPublico,
+                $altimagen,
+                $_GET["id"]
+            );
+
+        } else {
+            $sql = sprintf(
+                "UPDATE post 
+             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, activo=%s, altimagen='%s'
+             WHERE idpost=%s",
+                $titulo,
+                $entradilla,
+                $html,
+                $idcategoria,
+                $esPublico,
+                $altimagen,
+                $_GET["id"]
+            );
+        }
 
         // Ejecutamos el SQL con la respectiva conexion ($con)
         $resultadoDelQuery = mysqli_query($con, $sql);
