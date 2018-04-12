@@ -8,6 +8,11 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] != true) {
 include_once '../../DB/conexion.php';
 
 ?>
+<h1>Wecome, <?= $_SESSION["username"] ?></h1>
+<a href="logout.php">Cerrar sesion</a>
+
+<br /><br /><br />
+<hr />
 
 <a href="crear-post.php">CREAR UN NUEVO POST</a>
 
