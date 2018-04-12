@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION["login"]) || $_SESSION["login"] != true) {
+    header("Location: index.php", true, 301);
+    die();
+}
+
 // Necesitamos la variable que nos facilita conexion de la base de datos: $con
 require_once "../../DB/conexion.php";
 
