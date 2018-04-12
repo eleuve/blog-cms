@@ -87,6 +87,7 @@ if (isset($_GET["id"])) {
 
     <label for="">Categoría</label>
     <select name="categoria">
+        <option value="null">-SIN CATEGORÍA-</option>
         <?php
         // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
         $resultado = mysqli_query($con, "SELECT * FROM categoria");
@@ -94,10 +95,11 @@ if (isset($_GET["id"])) {
             $resultado,
             MYSQLI_ASSOC
         )) {
-            if($categoria==$idcategoria){
-                ?><option value="<?= $categoria["idcategoria"] ?>"><?= $categoria["nombre"] ?></option>
-        <?php
+            $esElMismo = false;
+            if($categoria["idcategoria"]==$idcategoria){
+                $esElMismo = true;
             }
+            ?><option value="<?= $categoria["idcategoria"] ?>" <?php if($esElMismo) { echo "selected"; } ?>><?= $categoria["nombre"] ?></option><?php
         }
         ?>
     </select><br/>
