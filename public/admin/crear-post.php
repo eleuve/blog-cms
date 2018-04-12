@@ -7,6 +7,7 @@ if (isset($_POST["enviar"])) {
     /**
      * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
      */
+    $idCategoria = $_POST["categoria"];
     $titulo = $_POST["titulo"];
     $entradilla = $_POST["entradilla"];
     $file = $_FILES["imagen"];
@@ -34,13 +35,13 @@ if (isset($_POST["enviar"])) {
 
     // Preparamos el SQL
     $sql = sprintf(
-        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `categoria`, `imagen`, `activo`, `altimagen`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s')",
+        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s')",
         "NULL",
         $titulo,
         $entradilla,
         $html,
         $fechaHoy,
-        "Categoria..",
+        $idCategoria,
         $file["name"],
         $esPublico,
         $altimagen
@@ -69,7 +70,7 @@ if (isset($_POST["enviar"])) {
 
 <form action="crear-post.php" method="post" enctype="multipart/form-data">
     <label for="">Categoría</label>
-    <select>
+    <select name="categoria">
         <?php
         // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
         $resultado = mysqli_query($con, "SELECT * FROM categoria");
@@ -77,7 +78,7 @@ if (isset($_POST["enviar"])) {
             $resultado,
             MYSQLI_ASSOC
         )) {
-            ?><option id="<?= $categoria["idcategoria"] ?>"><?= $categoria["nombre"] ?></option><?php
+            ?><option value="<?= $categoria["idcategoria"] ?>"><?= $categoria["nombre"] ?></option><?php
         }
         ?>
     </select><br/>
