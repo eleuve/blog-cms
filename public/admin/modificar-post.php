@@ -83,7 +83,7 @@ if (isset($_GET["id"])) {
 
 <h1>Editar post "<?=$titulo?>"</h1>
 
-<form action="modificar-post.php" method="post" enctype="multipart/form-data">
+<form action="modificar-post.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
 
     <label for="">Categoría</label>
     <select name="categoria">
