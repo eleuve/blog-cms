@@ -95,11 +95,7 @@ if (isset($_GET["id"])) {
             $resultado,
             MYSQLI_ASSOC
         )) {
-            $esElMismo = false;
-            if($categoria["idcategoria"]==$idcategoria){
-                $esElMismo = true;
-            }
-            ?><option value="<?= $categoria["idcategoria"] ?>" <?php if($esElMismo) { echo "selected"; } ?>><?= $categoria["nombre"] ?></option><?php
+            ?><option value="<?= $categoria["idcategoria"] ?>" <?= $categoria["idcategoria"]==$idcategoria ? "selected" : ""; ?>><?= $categoria["nombre"] ?></option><?php
         }
         ?>
     </select><br/>
