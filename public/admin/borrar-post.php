@@ -9,9 +9,7 @@ if (isset($_GET["id"])) {
     //ejecutamos la query
     $resultadoDelQuery = mysqli_query($con, $sql);
 
-    while($row = $resultadoDelQuery->fetch_assoc()) {
-      echo $row["imagen"];
-    }
+    $row = $resultadoDelQuery->fetch_assoc();
 
     unlink('../uploads/' . $row["imagen"]);
 
