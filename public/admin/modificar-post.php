@@ -21,6 +21,7 @@ if (isset($_GET["id"])) {
         $idcategoria = $row["idcategoria"];     
     }
     
+    $fileNameABorrarSiHayNuevo = $file;
 
     // IF que solo se ejecuta si hay POST editar (es el submit input)
     if (isset($_POST["editar"])) {
@@ -46,8 +47,19 @@ if (isset($_GET["id"])) {
         // Si hay nuevo archivo
         if ($file["size"] > 0) {
             // 1) Borrar el anterior archivo con unlink()
+            unlink('../uploads/' . $fileNameABorrarSiHayNuevo);
+
             // 2) Guardar el nuevo archivo en /uploads
+            
+            /** Guardado del archivo en la carpeta /uploads */
+            // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
+            $imageBinaryData = file_get_contents($file["tmp_name"]);
+            // Crea el archivo en uploads, require 2 cosas: nombre de archivo, contenido
+            file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
+
+
             // 3) Preparar el SQL que contiene el nuevo file["name"]
+
             $sql = sprintf(
                 "UPDATE post 
              SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s'
