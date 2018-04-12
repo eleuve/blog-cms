@@ -8,11 +8,14 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] != true) {
 include_once '../../DB/conexion.php';
 
 ?>
-<h1>Wecome, <?= $_SESSION["username"] ?></h1>
+<h1>Bienvenido, <?= $_SESSION["username"] ?></h1>
 <a href="logout.php">Cerrar sesion</a>
+
 
 <br /><br /><br />
 <hr />
+<a href="gestion.php">VOLVER AL MENÚ PRINCIPAL</a><br />
+
 
 <a href="crear-post.php">CREAR UN NUEVO POST</a>
 
@@ -45,9 +48,10 @@ while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 <script type="text/javascript">
     var elemento = document.getElementsByClassName('confirmacion');
     var confirmar = function (e) {
-        if (!confirm('¿Seguro que quieres borrar el post?')) e.preventDefault();
+        if (!confirm('¿Seguro que quieres eliminar permanentemente el post? \n Esta acción no se puede deshacer.')) e.preventDefault();
     };
     for (var i = 0, l = elemento.length; i < l; i++) {
         elemento[i].addEventListener('click', confirmar, false);
     }
 </script>
+

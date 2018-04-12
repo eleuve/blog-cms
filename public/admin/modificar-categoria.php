@@ -10,7 +10,7 @@ include_once '../../DB/conexion.php';
 
 if (isset($_GET["id"])) {
 
-    $sql = "SELECT * from post WHERE idpost = " . $_GET["id"];
+    $sql = "SELECT * from categoria WHERE idcategoria = " . $_GET["id"];
     
     // Ejecutamos el SQL con la respectiva conexion ($con)
     $resultadoDelQuery = mysqli_query($con, $sql);

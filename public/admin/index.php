@@ -10,7 +10,7 @@ if (isset($_POST["login"])) {
         $_SESSION["login"] = true;
         $_SESSION["username"] = "Francisco";
         // Redirecciona a dashboard...
-        header('Location: dashboard.php');
+        header('Location: gestion.php');
     } else {
         die('Usuario y/o pass incorrecto/s');
     }
