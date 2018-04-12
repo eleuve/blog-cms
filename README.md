@@ -1,4 +1,4 @@
-TO DO:
+# TO DO:
 	- crear navegación fluida entre págs
 		- página principal 
 			- gestiornar categorías
