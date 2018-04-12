@@ -31,7 +31,7 @@ while ($categoria = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         <?php echo $categoria["fecha"]; ?>
         <a href="modificar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>">MODIFICAR CATEGORÍA</a>
 
-        <a href="borrar-post.php?id=<?php echo $categoria["idcategoria"]; ?>" class="confirmacion">BORRAR CATEGORÍA</a>
+        <a href="borrar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="confirmacion">BORRAR CATEGORÍA</a>
         
     </div>
     <?php

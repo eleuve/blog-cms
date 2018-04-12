@@ -9,10 +9,10 @@ if (isset($_POST["login"])) {
         // Se ha hecho login de puta madre...
         $_SESSION["login"] = true;
         $_SESSION["username"] = "Francisco";
-        // Redirecciona a dashboard...
+        // Redirecciona a gestion...
         header('Location: gestion.php');
     } else {
-        die('Usuario y/o pass incorrecto/s');
+        die('Usuario y/o contraseña incorrecto/s');
     }
 }
 
@@ -44,3 +44,7 @@ if (isset($_POST["login"])) {
 
     <input type="submit" value="Login" name="login">
 </form>
+
+
+
+
