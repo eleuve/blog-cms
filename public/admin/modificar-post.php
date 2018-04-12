@@ -6,13 +6,22 @@ include_once '../../DB/conexion.php';
 if (isset($_GET["id"])) {
 
     $sql = "SELECT * from post WHERE idpost = " . $_GET["id"];
+    
+    // Ejecutamos el SQL con la respectiva conexion ($con)
+    $resultadoDelQuery = mysqli_query($con, $sql);
 
-    $titulo = $_POST["titulo"];
-    $entradilla = $_POST["entradilla"];
-    $file = $_FILES["imagen"];
-    $html = $_POST["entrada"];
-    $esPublico = "false";
-    $altimagen = $_POST["altimagen"];
+    while($row = $resultadoDelQuery->fetch_assoc()) {
+        $titulo = $row["titulo"];
+        $entradilla = $row["entradilla"];
+        $file = $row["imagen"];
+        $html = $row["contenido"];
+        $esPublico = $row["activo"];
+        $altimagen = $row["altimagen"];     
+    }
+
+
+
+    
 
 // IF que solo se ejecuta si hay POST enviar (es el submit input)
     if (isset($_POST["enviar"])) {
@@ -86,19 +95,19 @@ if (isset($_GET["id"])) {
 
 <form action="modificar-post.php" method="post" enctype="multipart/form-data">
     <label for="">Título:</label>
-    <input type="text" name="titulo"><br />
+    <input type="text" name="titulo" value="<?=$titulo?>"><br />
 
     <label for="">Entradilla:</label>
-    <input type="text" name="entradilla"><br />
+    <input type="text" name="entradilla" value="<?=$entradilla?>"><br />
 
     <label for="">Imagen:</label>
-    <input type="file" name="imagen" /><br />
+    <input type="file" name="imagen"  value="<?=$file?>"><br />
 
     <label for="">Alt de la imagen:</label>
-    <input type="text" name="altimagen" /><br />
+    <input type="text" name="altimagen"  value="<?=$altimagen?>"><br />
 
     <label for="">Entrada:</label>
-    <textarea name="entrada" id="" cols="30" rows="40"></textarea><br />
+    <textarea name="entrada" id="" cols="30" rows="40"> <?=$html?></textarea><br />
 
     <input type="checkbox" name="publico" value="público" name="publico">Público<br><br />
 
