@@ -1,4 +1,7 @@
 <?php
+// Necesitamos la variable que nos facilita conexion de la base de datos: $con
+require_once "../../DB/conexion.php";
+
 // IF que solo se ejecuta si hay POST enviar (es el submit input)
 if (isset($_POST["enviar"])) {
     /**
@@ -24,9 +27,6 @@ if (isset($_POST["enviar"])) {
     file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
 
     /** Como todo es correcto (validado empty & injections), ejecutamos un INSERT... */
-
-    // Necesitamos la variable que nos facilita conexion de la base de datos: $con
-    require_once "../../DB/conexion.php";
 
     // Preparamos la fecha para el SQL
     $datetimeHoy = new \Datetime("now");
@@ -68,22 +68,36 @@ if (isset($_POST["enviar"])) {
 ?>
 
 <form action="crear-post.php" method="post" enctype="multipart/form-data">
-	<label for="">Título:</label>
-	<input type="text" name="titulo"><br />
+    <label for="">Categoría</label>
+    <select>
+        <?php
+        // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
+        $resultado = mysqli_query($con, "SELECT * FROM categoria");
+        while ($categoria = mysqli_fetch_array(
+            $resultado,
+            MYSQLI_ASSOC
+        )) {
+            ?><option id="<?= $categoria["idcategoria"] ?>"><?= $categoria["nombre"] ?></option><?php
+        }
+        ?>
+    </select><br/>
 
-	<label for="">Entradilla:</label>
-	<input type="text" name="entradilla"><br />
+    <label for="">Título:</label>
+    <input type="text" name="titulo"><br/>
 
-	<label for="">Imagen:</label>
-	<input type="file" name="imagen" /><br />
+    <label for="">Entradilla:</label>
+    <input type="text" name="entradilla"><br/>
+
+    <label for="">Imagen:</label>
+    <input type="file" name="imagen"/><br/>
 
     <label for="">Alt de la imagen:</label>
-    <input type="text" name="altimagen" /><br />
+    <input type="text" name="altimagen"/><br/>
 
-	<label for="">Entrada:</label>
-	<textarea name="entrada" id="" cols="30" rows="40"></textarea><br />
+    <label for="">Entrada:</label>
+    <textarea name="entrada" id="" cols="30" rows="40"></textarea><br/>
 
-	<input type="checkbox" name="publico" value="público" name="publico">Público<br><br />
+    <input type="checkbox" name="publico" value="público" name="publico">Público<br><br/>
 
-	<input type="submit" value="Enviar" name="enviar">
+    <input type="submit" value="Enviar" name="enviar">
 </form>
