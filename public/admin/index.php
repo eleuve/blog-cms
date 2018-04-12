@@ -8,7 +8,7 @@ if (isset($_POST["login"])) {
     if ($_POST["user"] == $user && $_POST["pass"] == $pass) {
         // Se ha hecho login de puta madre...
         $_SESSION["login"] = true;
-        $_SESSION["username"] = "Nombre completo del cliente";
+        $_SESSION["username"] = "Francisco";
         // Redirecciona a dashboard...
         header('Location: dashboard.php');
     } else {

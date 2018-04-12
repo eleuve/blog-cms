@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION["login"]) || $_SESSION["login"] != true) {
+    header("Location: index.php", true, 302);
+    die();
+}
 
 include_once '../../DB/conexion.php';
 
@@ -50,7 +55,7 @@ if (isset($_GET["id"])) {
             unlink('../uploads/' . $fileNameABorrarSiHayNuevo);
 
             // 2) Guardar el nuevo archivo en /uploads
-            
+
             /** Guardado del archivo en la carpeta /uploads */
             // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
             $imageBinaryData = file_get_contents($file["tmp_name"]);
@@ -111,6 +116,7 @@ if (isset($_GET["id"])) {
 
 ?>
 
+a
 
 <h1>Editar post "<?=$titulo?>"</h1>
 
