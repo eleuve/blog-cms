@@ -1,5 +1,16 @@
 #TO DO:
 
+	- parte pública
+		- listado abreviado del post
+		- paginación de listado de posts
+	- poner metas
+		- autor
+		- descripcion
+
+
+
+#DONE:
+
 	- crear navegación fluida entre págs
 		- página principal 
 			- gestiornar categorías
