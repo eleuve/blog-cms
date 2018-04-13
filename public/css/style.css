@@ -48,3 +48,13 @@ button[type="submit"]{
 	border-bottom: 1px solid black;
 }
 
+
+/* mensaje de error */
+
+.error {
+	color: red;
+}
+
+.notificacion{
+	color: green;
+}

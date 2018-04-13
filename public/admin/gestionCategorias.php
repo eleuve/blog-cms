@@ -15,7 +15,11 @@
         die();
     }
 
+
+
     include_once '../../DB/conexion.php';
+
+    print_r($_SESSION); 
 
     ?>
 
@@ -44,6 +48,14 @@
                 <a href="crear-categoria.php" class="btn btn-primary text-center my-3" role="button">CREAR UNA NUEVA CATEGORÍA</a>
 
                 <?php
+
+                if(isset($_SESSION["flash_message"])) {
+                    echo '<div class="flash ' . $_SESSION["flash_type"] . '">' . $_SESSION["flash_message"] . '</div>';
+                    unset($_SESSION["flash_type"]);
+                    unset($_SESSION["flash_message"]);
+                }
+
+                
 
                 // vamos a listar las categorías que hay en la base de datos...
                 $sql = "SELECT * FROM categoria";
@@ -83,6 +95,11 @@
         for (var i = 0, l = elemento.length; i < l; i++) {
             elemento[i].addEventListener('click', confirmar, false);
         }
+
+
+    </script>
+    <script type="text/javascript">
+        $('.flash').delay(5000).fadeOut( "slow" );
     </script>
 </body>
 </html>

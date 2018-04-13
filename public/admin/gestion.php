@@ -30,10 +30,10 @@
 		<div class="row">
 			<div class="col-s-12 col-md-7 mx-auto mt-4">
 				<div class="row">
-					<div class="col-6">
+					<div class="col-6 accion">
 						<a href="gestionPosts.php" class="btn btn-primary" role="button">Gestionar posts</a>
 					</div>
-					<div class="col-6">
+					<div class="col-6 acciones">
 						<a href="gestionCategorias.php" class="btn btn-primary" role="button">Gestionar categorías</a>
 					</div>
 				</div>
