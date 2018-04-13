@@ -34,19 +34,25 @@
 </head>
 <body>
     <div class="container-fluid">
-        <h1 class="text-center">Gestor de contenidos del blog</h1>
         <div class="row">
-            <div class="col-4 mx-auto">
+            <header class="col-12" id=>
+                <h1 class="text-center">Gestor de contenidos del blog</h1>
+            </header>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mx-auto mt-4">
                 <form action="index.php" method="post">
+                    <h2 class="text-center">Inicia sesión</h2>
+                    <hr>
                     <div class="form-group">
                         <label for="usuario">Usuario</label>
-                        <input type="text" class="form-control" id="usuario" name="user">
+                        <input type="text" class="form-control" id="usuario" name="user" required>
                     </div>
                     <div class="form-group">
                         <label for="contra">Contraseña</label>
-                        <input type="password" class="form-control" id="contra" name="pass">
+                        <input type="password" class="form-control" id="contra" name="pass" required>
                     </div>
-                    <button type="submit" class="btn btn-primary float-right" name="login">Enviar</button>
+                    <button type="submit" class="btn btn-primary btn-block" name="login">Enviar</button>
                 </form>
             </div>
         </div>
