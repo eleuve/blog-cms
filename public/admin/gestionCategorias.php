@@ -39,7 +39,19 @@
         <div style="font-size:3em; color:Tomato">
             <i class="fas fa-camera-retro"></i>
         </div>
+    </div>
 
+        <div>
+            <?php
+            if(isset($_SESSION["flash_message"])) {
+                echo '<p class="text-center flash ' . $_SESSION["flash_type"] . '">' . $_SESSION["flash_message"] . '</p>';
+                unset($_SESSION["flash_type"]);
+                unset($_SESSION["flash_message"]);
+            }
+            ?>
+        </div>
+
+    <div class="container-fluid">
         <a href="gestion.php">VOLVER AL MENÚ PRINCIPAL</a><br />
 
         <div class="row">
@@ -48,15 +60,6 @@
                 <a href="crear-categoria.php" class="btn btn-primary text-center my-3" role="button">CREAR UNA NUEVA CATEGORÍA</a>
 
                 <?php
-
-                if(isset($_SESSION["flash_message"])) {
-                    echo '<div class="flash ' . $_SESSION["flash_type"] . '">' . $_SESSION["flash_message"] . '</div>';
-                    unset($_SESSION["flash_type"]);
-                    unset($_SESSION["flash_message"]);
-                }
-
-                
-
                 // vamos a listar las categorías que hay en la base de datos...
                 $sql = "SELECT * FROM categoria";
 
@@ -86,6 +89,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/jquery-3.3.1.min.js"></script>
 
     <script type="text/javascript">
         var elemento = document.getElementsByClassName('confirmacion');
