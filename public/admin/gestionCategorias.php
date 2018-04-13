@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Modificar categoría - Gestor</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/fontawesome-all.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.css">
     <link rel="stylesheet" href="../css/style.css">
 
     <?php
@@ -15,12 +15,7 @@
         die();
     }
 
-
-
     include_once '../../DB/conexion.php';
-
-    print_r($_SESSION); 
-
     ?>
 
 
@@ -36,24 +31,25 @@
                 <a href="logout.php">Cerrar sesion</a>
             </div>
         </header>
-        <div style="font-size:3em; color:Tomato">
-            <i class="fas fa-camera-retro"></i>
+        <div>
+            <i class="fas fa-arrow-circle-left"></i><br />
+            <a href="gestion.php">VOLVER AL MENÚ PRINCIPAL</a>
         </div>
     </div>
 
-        <div>
-            <?php
+       
+    <div>
+        <?php
             if(isset($_SESSION["flash_message"])) {
                 echo '<p class="text-center flash ' . $_SESSION["flash_type"] . '">' . $_SESSION["flash_message"] . '</p>';
                 unset($_SESSION["flash_type"]);
                 unset($_SESSION["flash_message"]);
             }
-            ?>
-        </div>
-
+        ?>
+    </div>
+    
     <div class="container-fluid">
-        <a href="gestion.php">VOLVER AL MENÚ PRINCIPAL</a><br />
-
+        
         <div class="row">
             <div class="col-s-12 col-md-9 mx-auto mt-4 text-center" style="background-color: pink;">
                 <h2>Gestión de categorías</h2>
@@ -81,10 +77,8 @@
                             </div>
                         </div>
                     </div>
-                    <?php
+                <?php
                 }
-
-
                 ?>
             </div>
         </div>

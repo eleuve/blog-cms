@@ -70,11 +70,14 @@ if (isset($_POST["enviar"])) {
 
     // Cerramos la conexion porque hemos acabado
     mysqli_close($con);
+
+    header("Location: gestionPosts.php", true, 302);
+    die();
 }
 
 ?>
 
-<a href="dashboard.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
+<a href="gestionPosts.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
 
 <form action="crear-post.php" method="post" enctype="multipart/form-data">
     <label for="">Categoría</label>
@@ -92,19 +95,19 @@ if (isset($_POST["enviar"])) {
     </select><br/>
 
     <label for="">Título:</label>
-    <input type="text" name="titulo"><br/>
+    <input type="text" name="titulo" required><br/>
 
     <label for="">Entradilla:</label>
-    <input type="text" name="entradilla"><br/>
+    <input type="text" name="entradilla" required><br/>
 
     <label for="">Imagen:</label>
-    <input type="file" name="imagen"/><br/>
+    <input type="file" name="imagen" required/><br/>
 
     <label for="">Alt de la imagen:</label>
     <input type="text" name="altimagen"/><br/>
 
     <label for="">Entrada:</label>
-    <textarea name="entrada" id="" cols="30" rows="40"></textarea><br/>
+    <textarea name="entrada" id="" cols="30" rows="40" required></textarea><br/>
 
     <input type="checkbox" name="publico" value="público" name="publico">Público<br><br/>
 

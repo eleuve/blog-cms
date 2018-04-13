@@ -63,6 +63,9 @@
 
             // Cerramos la conexion porque hemos acabado
             mysqli_close($con);
+
+            header("Location: gestionCategorias.php", true, 302);
+            die();
         }
 
     }
@@ -77,10 +80,10 @@
         <form action="modificar-categoria.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
 
             <label for="">Nombre:</label>
-            <input type="text" name="nombre" value="<?=$nombre?>"><br />
+            <input type="text" name="nombre" value="<?=$nombre?>" required><br />
 
             <label for="">URL:</label>
-            <input type="text" name="url" value="<?=$url?>"><br />
+            <input type="text" name="url" value="<?=$url?>" required><br />
 
             <input type="submit" value="Modificar categoria" name="modificar">
         </form>

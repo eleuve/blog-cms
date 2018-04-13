@@ -9,6 +9,7 @@ include_once '../../DB/conexion.php';
 
 
 if (isset($_GET["id"])) {
+
     $sql = "SELECT imagen from post WHERE idpost = " . $_GET["id"];
 
     //ejecutamos la query
@@ -34,17 +35,24 @@ if (isset($_GET["id"])) {
 
     $mensaje = "Post borrado correctamente.";
 
+    $_SESSION["flash_type"] = "notificacion";
+
     if (mysqli_errno($con)) {
         print_r(mysqli_error($con));
         $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador";
+        $_SESSION["flash_type"] = "error";
     }
 
-    echo "<h1>" . $mensaje . "</h1>";
+    $_SESSION["flash_message"] = $mensaje;
+
 
     // Cerramos la conexion porque hemos acabado
     mysqli_close($con);
 
     }
+
+    header("Location: gestionPosts.php", true, 302);
+    die();
 
 ?>
 

@@ -46,6 +46,9 @@ if (isset($_POST["enviar"])) {
 
     // Cerramos la conexion porque hemos acabado
     mysqli_close($con);
+
+    header("Location: gestionCategorias.php", true, 302);
+    die();
 }
 
 ?>
@@ -57,10 +60,10 @@ if (isset($_POST["enviar"])) {
 <form action="crear-categoria.php" method="post" enctype="multipart/form-data">
 
     <label for="">Nombre:</label>
-    <input type="text" name="nombre"><br/>
+    <input type="text" name="nombre" required><br/>
 
     <label for="">Url:</label>
-    <input type="text" name="url"><br/>
+    <input type="text" name="url" required><br/>
 
     <input type="submit" value="Enviar" name="enviar">
 </form>
