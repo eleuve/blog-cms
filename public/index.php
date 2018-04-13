@@ -74,6 +74,7 @@
 
           <!-- Title -->
           <h1 class="mt-4"><?php echo $post["titulo"]; ?></h1>
+          <h2 class="mt-4"><?php echo $post["entradilla"]; ?></h1>
 
           <hr>
 
@@ -104,34 +105,22 @@
 
           <!-- Categories Widget -->
           <div class="card my-4">
-            <h5 class="card-header">Categories</h5>
+            <h5 class="card-header">Categorías</h5>
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">Web Design</a>
-                    </li>
-                    <li>
-                      <a href="#">HTML</a>
-                    </li>
-                    <li>
-                      <a href="#">Freebies</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">JavaScript</a>
-                    </li>
-                    <li>
-                      <a href="#">CSS</a>
-                    </li>
-                    <li>
-                      <a href="#">Tutorials</a>
-                    </li>
-                  </ul>
+                	<ul class="list-unstyled mb-0">
+                	<?php
+                      // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
+                        $resultado = mysqli_query($con, "SELECT * FROM categoria");
+                        while ($categoria = mysqli_fetch_array(
+                            $resultado,MYSQLI_ASSOC)) {
+                        ?>
+                        <li><a href="<?= $categoria["slug"] ?>"><?= $categoria["nombre"] ?></a></li>
+                        <?php
+                        }
+                        ?>
+                  	</ul>
                 </div>
               </div>
             </div>
