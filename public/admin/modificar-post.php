@@ -119,54 +119,112 @@ if (isset($_GET["id"])) {
 
 ?>
 
-<a href="gestionPosts.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Modificar post - Gestor</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
 
-<h1>Editar post "<?=$titulo?>"</h1>
+    <div class="container-fluid">
+        <header class="row">
+            <div class="col-6">
+                <h1>Bienvenido, <?= $_SESSION["username"] ?></h1>
+            </div>
+            <div class="col-6 text-right">
+                <a href="logout.php">Cerrar sesion</a>
+            </div>
+        </header>
+        <div>
+            <i class="fas fa-arrow-circle-left"></i><br />
+            <a href="gestion.php">VOLVER AL MENÚ PRINCIPAL</a>
+        </div>
+    </div>
 
-<form action="modificar-post.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
+     <div class="container-fluid">
+        <h2>Editar post "<?=$titulo?>"</h2>
 
-    <label for="">Categoría</label>
-    <select name="categoria">
-        <option value="null">-SIN CATEGORÍA-</option>
-        <?php
-        // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
-        $resultado = mysqli_query($con, "SELECT * FROM categoria");
-        while ($categoria = mysqli_fetch_array(
-            $resultado,
-            MYSQLI_ASSOC
-        )) {
-            ?><option value="<?= $categoria["idcategoria"] ?>" <?= $categoria["idcategoria"]==$idcategoria ? "selected" : ""; ?>><?= $categoria["nombre"] ?></option><?php
+        <div class="row">
+            <div class="col-s-12 col-md-9 mx-auto mt-4">
+                <a href="gestionPosts.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
+
+                <div id="form-container" class="container">
+                    <form action="modificar-post.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-xsl-12">
+                                <div class="form-group">
+                                    <label for="">Categoría</label>
+                                    <select class="form-control" name="categoria">
+                                        <option value="null">-SIN CATEGORÍA-</option>
+                                        <?php
+                                        // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
+                                        $resultado = mysqli_query($con, "SELECT * FROM categoria");
+                                        while ($categoria = mysqli_fetch_array(
+                                             $resultado,
+                                             MYSQLI_ASSOC
+                                        )) {
+                                         ?><option value="<?= $categoria["idcategoria"] ?>" <?= $categoria["idcategoria"]==$idcategoria ? "selected" : ""; ?>><?= $categoria["nombre"] ?></option><?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Título:</label>
+                                    <input class="form-control" type="text" name="titulo" value="<?=$titulo?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Entradilla:</label>
+                                    <input class="form-control" type="text" name="entradilla" value="<?=$entradilla?>" required>
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="">Imagen:</label>
+                                    <input class="form-control" type="file" name="imagen"  value="<?=$file?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Alt de la imagen:</label>
+                                    <input class="form-control" type="text" name="altimagen"  value="<?=$altimagen?>"><br />
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Entrada:</label>
+                                    <textarea class="form-control" name="entrada" id="" cols="30" rows="40" required> <?=$html?></textarea><br />
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="publico" value="público">Público<br><br />
+                                 </div>
+                                <div class="form-group">
+                                    <input class="btn btn-primary" type="submit" value="Editar post" name="editar">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
+
+    <script type="text/javascript">
+        var elemento = document.getElementsByClassName('confirmacion');
+        var confirmar = function (e) {
+            if (!confirm('¿Seguro que quieres volver atrás? \n Los cambios que hayas hecho no se guardarán.')) e.preventDefault();
+        };
+        for (var i = 0, l = elemento.length; i < l; i++) {
+            elemento[i].addEventListener('click', confirmar, false);
         }
-        ?>
-    </select><br/>
-    <label for="">Título:</label>
-    <input type="text" name="titulo" value="<?=$titulo?>" required><br />
+    </script>
+    <script type="text/javascript">
+        $('.flash').delay(5000).fadeOut( "slow" );
 
-    <label for="">Entradilla:</label>
-    <input type="text" name="entradilla" value="<?=$entradilla?>" required><br />
+        CKEDITOR.replace( 'entrada' );
+    </script>
 
-    <label for="">Imagen:</label>
-    <input type="file" name="imagen"  value="<?=$file?>"><br />
-
-    <label for="">Alt de la imagen:</label>
-    <input type="text" name="altimagen"  value="<?=$altimagen?>"><br />
-
-    <label for="">Entrada:</label>
-    <textarea name="entrada" id="" cols="30" rows="40" required> <?=$html?></textarea><br />
-
-    <input type="checkbox" name="publico" value="público" name="publico">Público<br><br />
-
-    <input type="submit" value="Editar post" name="editar">
-</form>
-
-<script type="text/javascript">
-    var elemento = document.getElementsByClassName('confirmacion');
-    var confirmar = function (e) {
-        if (!confirm('¿Seguro que quieres volver atrás? \n Los cambios que hayas hecho no se guardarán.')) e.preventDefault();
-    };
-    for (var i = 0, l = elemento.length; i < l; i++) {
-        elemento[i].addEventListener('click', confirmar, false);
-    }
-</script>
+</body>
+</html>
 
 

@@ -150,11 +150,11 @@ if (isset($_POST["submit"])) {
                                 <div class="form-group">
                                     <label for="entrada">Entrada</label>
                                     <textarea class="form-control" name="entrada">
-                                        Whatever
+                                        
                                     </textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="checkbox" name="publico" value="público" name="publico">Público<br><br/>
+                                    <input type="checkbox" name="publico" value="público">Público<br><br/>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit" name="submit">Crear</button>
