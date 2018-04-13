@@ -43,7 +43,7 @@
             <?php
 
             // vamos a listar los posts que hay en la base de datos...
-            $sql = "SELECT * FROM post WHERE activo = 1";
+            $sql = "SELECT * FROM post";
 
             $result = mysqli_query($con, $sql);
 

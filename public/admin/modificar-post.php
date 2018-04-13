@@ -28,6 +28,13 @@ if (isset($_GET["id"])) {
     
     $fileNameABorrarSiHayNuevo = $file;
 
+
+    if($esPublico==1){
+        $checked="checked";
+    }else{
+        $checked="";
+    }
+
     // IF que solo se ejecuta si hay POST editar (es el submit input)
     if (isset($_POST["editar"])) {
         /**
@@ -187,14 +194,14 @@ if (isset($_GET["id"])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="">Alt de la imagen:</label>
-                                    <input class="form-control" type="text" name="altimagen"  value="<?=$altimagen?>"><br />
+                                    <input class="form-control" type="text" name="altimagen"  value="<?=$altimagen?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Entrada:</label>
-                                    <textarea class="form-control" name="entrada" id="" cols="30" rows="40" required> <?=$html?></textarea><br />
+                                    <textarea class="form-control" name="entrada" id="" cols="30" rows="40" required> <?=$html?></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="checkbox" name="publico" value="público">Público<br><br />
+                                    <input type="checkbox" name="publico" value="público" <?= $checked ?>>Público<br>
                                  </div>
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="submit" value="Editar post" name="editar">
