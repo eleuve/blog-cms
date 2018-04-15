@@ -36,40 +36,45 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-s-12 col-md-9 mx-auto mt-4 text-center" style="background-color: pink;">
-            <h2>Gestión de posts</h2>
-            <a href="crear-post.php" class="btn btn-primary text-center my-3" role="button">CREAR NUEVO POST</a>
-            <?php
-
-            // vamos a listar los posts que hay en la base de datos...
-            $sql = "SELECT * FROM post";
-
-            $result = mysqli_query($con, $sql);
-
-            while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                ?>
-                <div class="row elemento">
-                    <div class="col-9 text-left">
-                        <h2><?php echo $post["titulo"]; ?></h2>
-                        <h3><?php echo $post["entradilla"]; ?></h3>
-                        <?php echo $post["fecha"]; ?>
-                        <p><?php echo $post["contenido"]; ?></p>
-                    </div>
-                    <div class="col-3">
-                        <div class="row">
-                            <a href="modificar-post.php?id=<?php echo $post["idpost"]; ?>" class="col-6">MODIFICAR ESTE POST</a>
-
-                            <a href="borrar-post.php?id=<?php echo $post["idpost"]; ?>" class="confirmacion col-6">BORRAR ESTE POST</a>
-                        </div>
-                    </div>       
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-s-12 col-md-9 mx-auto mt-4 text-center" style="background-color: pink;">
+                <h2>Gestión de posts</h2>
+                <a href="crear-post.php" class="btn btn-primary text-center my-3" role="button">CREAR NUEVO POST</a>
                 <?php
-            }
+
+                // vamos a listar los posts que hay en la base de datos...
+                $sql = "SELECT * FROM post";
+
+                $result = mysqli_query($con, $sql);
+
+                while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                    ?>
+                    <div class="row elemento">
+                        <div class="col-9 text-left">
+                            <p><?php echo $post["titulo"]; ?></p>
+                            <p><?php echo $post["entradilla"]; ?></p>
+                            <?php echo $post["fecha"]; ?>
+                            <p><?php echo $post["contenido"]; ?></p>
+                        </div>
+                        <div class="col-3">
+                            <div class="row" style="background-color: orange;">
+                                <div class="col-6" style="background-color: lightgreen;">
+                                    <a href="modificar-post.php?id=<?php echo $post["idpost"]; ?>" class="btn-modificar btn btn-primary btn-block" role="button"><i class="far fa-edit fa-3x"></i><br />Modificar</a>
+                                </div>
+                                <div class="col-6 my-auto" style="background-color: lightblue;">
+                                    <a href="borrar-post.php?id=<?php echo $post["idpost"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block " role="button"><i class="far fa-trash-alt fa-3x"></i><br />Eliminar</a>
+                                </div>
+                            </div>
+                        </div>       
+                    </div>
+                    <?php
+                }
 
 
-            ?>
+                ?>
 
+            </div>
         </div>
     </div>
 </div>
