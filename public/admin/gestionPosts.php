@@ -22,21 +22,27 @@
 </head>
 <body>
     <div class="container-fluid">
-        <header class="row">
-            <div class="col-6">
-                <h1>Bienvenido, <?= $_SESSION["username"] ?></h1>
-            </div>
-            <div class="col-6 text-right">
-                <a href="logout.php">Cerrar sesion</a>
-            </div>
-        </header>
-        <div>
-            <i class="fas fa-arrow-circle-left"></i><br />
-            <a href="gestion.php">VOLVER AL MENÚ PRINCIPAL</a>
+        <div class="row">
+            <header class="col-12">
+                <div class="row">
+                    <div class="col-8">
+                        <h1 class="my-auto">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                    </div>
+                    <div class="col-4 text-right">                  
+                        <a href="logout.php" class="pt-2"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                    </div>
+                </div>
+            </header>
         </div>
     </div>
-
+  
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-5 text-left">
+                <i class="fas fa-arrow-circle-left fa-2x"></i><br />
+                <a href="gestion.php">MENÚ PRINCIPAL</a>
+            </div>
+        </div>
         <div class="row">
             <div class="col-s-12 col-md-9 mx-auto mt-4 text-center" style="background-color: pink;">
                 <h2>Gestión de posts</h2>
@@ -49,13 +55,22 @@
                 $result = mysqli_query($con, $sql);
 
                 while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+                    $esPublico = $post["activo"];
+
+                    if($esPublico==1){
+                        $activo="";
+                    }else{
+                        $activo="elemento-inactivo";
+                    }
+
                     ?>
-                    <div class="row elemento">
+                    <div class="row elemento <?= $activo ?>">
                         <div class="col-9 text-left">
-                            <p><?php echo $post["titulo"]; ?></p>
-                            <p><?php echo $post["entradilla"]; ?></p>
-                            <?php echo $post["fecha"]; ?>
-                            <p><?php echo $post["contenido"]; ?></p>
+                            <span class="fecha"><?php echo $post["fecha"]; ?></span>
+                            <p><strong><?php echo $post["titulo"]; ?></strong><br/>
+                            <?php echo $post["entradilla"]; ?>
+                            <span class="contenido-reducido"><?php echo substr($post["contenido"], 0, 200); ?></span></p>
                         </div>
                         <div class="col-3">
                             <div class="row" style="background-color: orange;">

@@ -65,9 +65,9 @@
                 ?>
                     <div class="row elemento">
                         <div class="col-9 text-left">
-                            <p>Nombre: <?php echo $categoria["nombre"]; ?></p>
-                            <p>Enlace: <?php echo $categoria["slug"]; ?></p>
-                            <p>Creada el: <?php echo $categoria["fecha"]; ?></p>
+                            <span><?php echo $categoria["fecha"]; ?></span>
+                            <p>Nombre: <?php echo $categoria["nombre"]; ?> <br />
+                            Enlace: <?php echo $categoria["slug"]; ?></p>
                         </div>
                         <div class="col-3">
                             <div class="row">

@@ -1,28 +1,28 @@
-
 body {
+	color: #3d3d3d;
 	background: rgba(255,255,255,1);
-background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
-background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
-
+	background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+	background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+	background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+	background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
 }
 
 a {	
+
 }
 
 header {
 	height: 100px;
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2f6f8+0,d8e1e7+50,b5c6d0+51,e0eff9+100;Grey+Gloss+%232 */
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e0e9f4+0,d8e1ee+10,ccd4e4+25,ccd5e6+37,cdd6e9+50,bbc8df+51,d6e2ee+83,e3f0f5+100 */
-background: #e0e9f4; /* Old browsers */
-background: -moz-linear-gradient(top, #e0e9f4 0%, #d8e1ee 10%, #ccd4e4 25%, #ccd5e6 37%, #cdd6e9 50%, #bbc8df 51%, #d6e2ee 83%, #e3f0f5 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top, #e0e9f4 0%,#d8e1ee 10%,#ccd4e4 25%,#ccd5e6 37%,#cdd6e9 50%,#bbc8df 51%,#d6e2ee 83%,#e3f0f5 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom, #e0e9f4 0%,#d8e1ee 10%,#ccd4e4 25%,#ccd5e6 37%,#cdd6e9 50%,#bbc8df 51%,#d6e2ee 83%,#e3f0f5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0e9f4', endColorstr='#e3f0f5',GradientType=0 ); /* IE6-9 */
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#efefef+0,dcdede+22,d3d5d5+33,cfd1d1+50,cacccc+84,adb1b0+95,8e8e8e+100 */
+background: #efefef; /* Old browsers */
+background: -moz-linear-gradient(top, #efefef 0%, #dcdede 22%, #d3d5d5 33%, #cfd1d1 50%, #cacccc 84%, #adb1b0 95%, #8e8e8e 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #efefef 0%,#dcdede 22%,#d3d5d5 33%,#cfd1d1 50%,#cacccc 84%,#adb1b0 95%,#8e8e8e 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #efefef 0%,#dcdede 22%,#d3d5d5 33%,#cfd1d1 50%,#cacccc 84%,#adb1b0 95%,#8e8e8e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#8e8e8e',GradientType=0 ); /* IE6-9 */
+	
 }
 
 form {
@@ -58,17 +58,28 @@ button[type="submit"]{
 /*listado de categoría*/
 
 .elemento {
-	border-top: 1px solid black;
-	border-left: 1px solid black;
-	border-right: 1px solid black;
+	border-top: 1px solid #3d3d3d;
+	border-left: 1px solid #3d3d3d;
+	border-right: 1px solid #3d3d3d;
 	background-color: #ffffff;
 }
 
 .elemento:last-of-type {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #3d3d3d;
 }
 
+.elemento-inactivo {
+	background-color: #e2e2e2;
+}
 
+.fecha {
+	color: #636363;
+}
+
+.contenido-reducido {
+	font-weight: normal;
+	font-size: 1em;
+}
 
 /* mensaje de error */
 .flash {

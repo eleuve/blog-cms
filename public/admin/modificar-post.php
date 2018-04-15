@@ -153,16 +153,15 @@ if (isset($_GET["id"])) {
     </div>
 
      <div class="container-fluid">
-        <h2>Editar post "<?=$titulo?>"</h2>
+        <h2 class="text-center">Editar post "<?=$titulo?>"</h2>
 
         <div class="row">
             <div class="col-s-12 col-md-9 mx-auto mt-4">
                 <a href="gestionPosts.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
-
                 <div id="form-container" class="container">
                     <form action="modificar-post.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="col-xsl-12">
+                            <div class="col-xsl-12 mx-auto">
                                 <div class="form-group">
                                     <label for="">Categoría</label>
                                     <select class="form-control" name="categoria">
@@ -201,7 +200,7 @@ if (isset($_GET["id"])) {
                                     <textarea class="form-control" name="entrada" id="" cols="30" rows="40" required> <?=$html?></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="checkbox" name="publico" value="público" <?= $checked ?>>Público<br>
+                                    <input type="checkbox" name="publico" value="público" <?= $checked ?>> Público<br>
                                  </div>
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="submit" value="Editar post" name="editar">
