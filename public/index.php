@@ -136,7 +136,7 @@
                   while ($categoria = mysqli_fetch_array(
                     $resultado,MYSQLI_ASSOC)) {
                       ?>
-                      <li><a href="<?= $categoria["slug"] ?>"><?= $categoria["nombre"] ?></a></li>
+                      <li><a href="categoria.php?slug=<?= $categoria["slug"] ?>"><?= $categoria["nombre"] ?></a></li>
                       <?php
                     }
                     ?>
