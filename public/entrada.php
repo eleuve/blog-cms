@@ -61,20 +61,21 @@
 
        include_once '../DB/conexion.php';
 
+       $sql = "SELECT * FROM post WHERE activo = 1 AND slug = '" . $_GET["slug"] . "'";
+       $resultado = mysqli_query($con, $sql);
+       $post = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
 
-			// vamos a listar los posts que hay en la base de datos...
+       if ($post === NULL) {
+           header('Location: 404.php');
+           die;
+       }
 
-       $sql = "SELECT * FROM post WHERE activo = 1 ORDER BY fecha DESC LIMIT 1";
-
-       $result = mysqli_query($con, $sql);
-
-       while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         ?>
 
 
         <!-- Title -->
         <h1 class="mt-4"><?php echo $post["titulo"]; ?></h1>
-        <h2 class="mt-4"><?php echo $post["entradilla"]; ?></h1>
+        <h2 class="mt-4"><?php echo $post["entradilla"]; ?></h2>
 
           <hr>
 
@@ -105,12 +106,6 @@
           <?php echo $post["contenido"]; ?>
 
           <hr>
-
-          <?php
-        }
-
-
-        ?>
       </div>
 
       <!-- Sidebar Widgets Column -->

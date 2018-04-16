@@ -96,8 +96,6 @@
 
           $sql = "SELECT * FROM post WHERE idcategoria='$id' ORDER BY fecha DESC LIMIT $offset, $postsPorPag";
 
-        //die($sql);
-
           $result = mysqli_query($con, $sql);
 
           while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -105,7 +103,7 @@
             <div class="card mb-4">
               <img class="card-img-top" src="uploads/<?php echo $post["imagen"] ?>" alt="<?php echo $post["altimagen"]?>">
               <div class="card-body">
-                <h2 class="card-title"><?php echo $post["titulo"]; ?></h2>
+                <a href="entrada.php?slug=<?= $post['slug'] ?>"><h2 class="card-title"><?php echo $post["titulo"]; ?></h2></a>
                 <p class="card-text"><?php echo $post["entradilla"]; ?></p>
               </div>
               <div class="card-footer text-muted">
