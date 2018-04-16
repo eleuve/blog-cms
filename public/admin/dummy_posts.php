@@ -1,9 +1,9 @@
 <?php
 
-$totalPosts = 800;
+$totalPosts = 400;
 
 require_once "../../DB/conexion.php";
-
+require_once "slug.php";
 // Preparamos la fecha para el SQL
 $datetimeHoy = new \Datetime("now");
 $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
@@ -15,7 +15,7 @@ $crearSql = function($titulo) {
 
     // Preparamos el SQL
     $sql = sprintf(
-        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s')",
+        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`, `slug`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s', '%s')",
         "NULL",
         $titulo,
         'DUMMY FAKE POST',
@@ -24,7 +24,8 @@ $crearSql = function($titulo) {
         38, // fresas
         'DUMMY_FILENAME.jpg',
         true,
-        "DUMMY ALT IMAGE"
+        "DUMMY ALT IMAGE",
+        slugify($titulo)
     );
 
     return $sql;
