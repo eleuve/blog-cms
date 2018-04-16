@@ -1,75 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>Blog  - Francisco Vidal</title>
+  <title>Blog  - Francisco Vidal</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/blog-home.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Francisco Vidal</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Francisco Vidal</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- Page Content -->
-    <div class="container pt-5">
+  <!-- Page Content -->
+  <div class="container pt-5">
 
-      <div class="row">
+    <div class="row">
 
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
 
-          <h1 class="my-4">Entradas
-            <small>Secondary Text</small>
-          </h1>
+        <h1 class="my-4">Entradas
+          <small>Secondary Text</small>
+        </h1>
 
-          <!-- Blog Post -->
-          <?php
+        <!-- Blog Post -->
+        <?php
 
-          include_once '../DB/conexion.php';
-          $sql = "SELECT * FROM post WHERE activo = 1 ORDER BY fecha DESC";
+        include_once '../DB/conexion.php';
+        include_once 'paginacion.php';
 
-          $result = mysqli_query($con, $sql);
+        
+        $sql = "SELECT * FROM post WHERE activo = 1 ORDER BY fecha DESC LIMIT $offset, $postsPorPag";
 
-          while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            ?>   
+        $result = mysqli_query($con, $sql);
+
+        while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          ?>   
           <div class="card mb-4">
             <img class="card-img-top" src="uploads/<?php echo $post["imagen"] ?>" alt="<?php echo $post["altimagen"]?>">
             <div class="card-body">
@@ -81,55 +84,76 @@
             </div>
           </div>
           <?php
-          }
+        }
 
+        ?>
+
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center mb-4">
+          <?php
+            $deshabilitado = "disabled";
+
+            if($paginaActual == 1 || $paginaActual < 1){
+              $deshabilitado = "disabled";
+            }else {
+              $deshabilitado = "";
+            }
           ?>
+          <li class="page-item <?= $deshabilitado ?>">
+            <a class="page-link" href="'{$_SERVER['PHP_SELF']}?paginaActual=1'">&larr; Más recientes</a>
+          </li>
 
-          <!-- Pagination -->
-          <ul class="pagination justify-content-center mb-4">
-            <li class="page-item">
-              <a class="page-link" href="#">&larr; Más antiguas</a>
-            </li>
-            <li class="page-item disabled">
-              <a class="page-link" href="#">Más recientes &rarr;</a>
-            </li>
-          </ul>
+          <?php
+            $deshabilitado = "disabled";
 
-        </div>
+            if($paginaActual == $paginas || $paginaActual > $paginas){
+              $deshabilitado = "disabled";
+            }else {
+              $deshabilitado = "";
+            }
+      
+          ?>
+          <li class="page-item <?= $deshabilitado ?>">
+            <a class="page-link" href="'{$_SERVER['PHP_SELF']}?paginaActual=2">Más antiguas &rarr;</a>
+          </li>
 
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
+        </ul>
 
-          <!-- Search Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Búsqueda</h5>
-            <div class="card-body">
-              <div class="input-group">
-                <input type="text" class="form-control">
-                <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Buscar</button>
-                </span>
-              </div>
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Búsqueda</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Buscar</button>
+              </span>
             </div>
           </div>
+        </div>
 
-          <!-- Categories Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Categorías</h5>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <?php
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categorías</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <?php
                       // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
-                        $resultado = mysqli_query($con, "SELECT * FROM categoria");
-                        while ($categoria = mysqli_fetch_array(
-                            $resultado,MYSQLI_ASSOC)) {
-                        ?>
-                        <li><a href="<?= $categoria["slug"] ?>"><?= $categoria["nombre"] ?></a></li>
-                        <?php
-                        }
-                        ?>
+                  $resultado = mysqli_query($con, "SELECT * FROM categoria");
+                  while ($categoria = mysqli_fetch_array(
+                    $resultado,MYSQLI_ASSOC)) {
+                      ?>
+                      <li><a href="<?= $categoria["slug"] ?>"><?= $categoria["nombre"] ?></a></li>
+                      <?php
+                    }
+                    ?>
                   </ul>
                 </div>
               </div>
@@ -166,4 +190,4 @@
 
   </body>
 
-</html>
+  </html>
