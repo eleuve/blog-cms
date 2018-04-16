@@ -4,6 +4,10 @@ include_once '../DB/conexion.php';
 
 $sql = "SELECT COUNT(*) FROM post";
 
+if (isset($filtroCategoriaId)) {
+    $sql .= " WHERE idcategoria = '" . $filtroCategoriaId . "'";
+}
+
 $resultado = mysqli_query($con, $sql);
 $r = mysqli_fetch_row($resultado);
 
