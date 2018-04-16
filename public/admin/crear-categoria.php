@@ -72,7 +72,7 @@ if (isset($_POST["enviar"])) {
             <header class="col-12">
                 <div class="row">
                     <div class="col-8">
-                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                        <h1 class="p-4">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
                     <div class="col-4 text-right mt-3">                  
                         <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>

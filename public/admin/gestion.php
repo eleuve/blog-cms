@@ -26,10 +26,10 @@
             <header class="col-12">
                 <div class="row">
                     <div class="col-8">
-                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                        <h1 class="p-4">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
-                    <div class="col-4 text-right mt-3">                  
-                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                    <div class="col-4 text-right mt-3">
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                     </div>
                 </div>
             </header>
@@ -40,15 +40,15 @@
 		<div class="row">
 			<div class="col-s-12 col-md-8 mx-auto mt-4">
 				<div class="row flex-wrap">
-					<div class="col-s-12 col-md-6 accion">
+					<div class="col-s-12 col-md-5 accion">
 						<img src="../images/ordenador.png" alt="" class="img-fluid rounded">
 					</div>
-					<div class="col-s-12 col-md-6 accion">
+					<div class="col-s-12 col-md-7 accion d-flex align-items-center">
 						<div class="row">
-							<div class="col-s-12 col-md-6 mx-auto">
-								<a href="gestionPosts.php" class="btn btn-primary btn-lg " role="button">Gestionar posts</a>
+							<div class="col-s-12 col-md-6 my-2">
+								<a href="gestionPosts.php" class="btn btn-primary btn-lg align-self-center" role="button">Gestionar posts</a>
 							</div>
-							<div class="col-s-12 col-md-6 mx-auto">	
+							<div class="col-s-12 col-md-6 my-2">	
 								<a href="gestionCategorias.php" class="btn btn-primary btn-lg" role="button">Gestionar categorías</a>
 							</div>	
 						</div>

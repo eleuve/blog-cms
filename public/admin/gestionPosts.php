@@ -26,9 +26,9 @@
             <header class="col-12">
                 <div class="row">
                     <div class="col-8">
-                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                        <h1 class="p-4">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
-                    <div class="col-4 text-right mt-3">                  
+                    <div class="col-4 text-right mt-3">              
                         <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
                     </div>
                 </div>
@@ -38,13 +38,13 @@
   
     <div class="container-fluid">
         <div class="row">
-            <div class="col-5 text-left">
+            <div class="col-5 text-left p-3">
                 <i class="fas fa-home fa-2x"></i><br />
-                <a href="gestion.php">MENÚ PRINCIPAL</a>
+                <a href="gestion.php">INICIO</a>
             </div>
         </div>
         <div class="row">
-            <div class="col-s-12 col-md-9 mx-auto mt-4 text-center">
+            <div class="col-s-12 col-md-9 mx-auto my-4 text-center">
                 <h2>Gestión de posts</h2>
                 <a href="crear-post.php" class="btn btn-primary text-center my-3" role="button">CREAR NUEVO POST</a>
                 <?php
@@ -74,10 +74,10 @@
                         </div>
                         <div class="col-3">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-6 mt-2">
                                     <a href="modificar-post.php?id=<?php echo $post["idpost"]; ?>" class="btn-modificar btn btn-primary btn-block" role="button"><i class="far fa-edit fa-2x"></i><br />Modificar</a>
                                 </div>
-                                <div class="col-6 my-auto">
+                                <div class="col-6 mt-2">
                                     <a href="borrar-post.php?id=<?php echo $post["idpost"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block " role="button"><i class="far fa-trash-alt fa-2x"></i><br />Eliminar</a>
                                 </div>
                             </div>

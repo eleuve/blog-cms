@@ -29,7 +29,7 @@
             <header class="col-12">
                 <div class="row">
                     <div class="col-8">
-                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                        <h1 class="p-4">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
                     <div class="col-4 text-right mt-3">                  
                         <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
@@ -38,9 +38,11 @@
             </header>
         </div>
     </div>
-
-       
-    <div>
+   
+   
+    
+    <div class="container-fluid">
+        <div>
         <?php
             if(isset($_SESSION["flash_message"])) {
                 echo '<p class="text-center flash ' . $_SESSION["flash_type"] . '">' . $_SESSION["flash_message"] . '</p>';
@@ -48,46 +50,44 @@
                 unset($_SESSION["flash_message"]);
             }
         ?>
-    </div>
-    
-    <div class="container-fluid">
+        </div>
         <div class="row">
-            <div class="col-5 text-left">
+            <div class="col-5 text-left p-3">
                 <i class="fas fa-home fa-2x"></i><br />
-                <a href="gestion.php">MENÚ PRINCIPAL</a>
+                <a href="gestion.php">INICIO</a>
             </div>
         </div> 
         <div class="row">
-            <div class="col-s-12 col-md-9 mx-auto mt-4 text-center">
+            <div class="col-s-12 col-md-9 mx-auto m-4 text-center" style="background-color: orange;">
                 <h2>Gestión de categorías</h2>
                 <a href="crear-categoria.php" class="btn btn-primary text-center my-3" role="button">CREAR UNA NUEVA CATEGORÍA</a>
+                    <?php
+                    // vamos a listar las categorías que hay en la base de datos...
+                    $sql = "SELECT * FROM categoria";
 
-                <?php
-                // vamos a listar las categorías que hay en la base de datos...
-                $sql = "SELECT * FROM categoria";
+                    $result = mysqli_query($con, $sql);
 
-                $result = mysqli_query($con, $sql);
-
-                while ($categoria = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                ?>
-                    <div class="row elemento">
-                        <div class="col-9 text-left">
-                            <span><?php echo $categoria["fecha"]; ?></span>
-                            <p>Nombre: <?php echo $categoria["nombre"]; ?><br/>
-                                URL: <?php echo $categoria["slug"]; ?></p>
-                            </p>
+                    while ($categoria = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                    ?>
+                <div class="row elemento">
+                    <div class="col-9 text-left">
+                        <span><?php echo $categoria["fecha"]; ?></span>
+                        <p>Nombre: <strong><?php echo $categoria["nombre"]; ?></strong><br/>
+                            URL: <?php echo $categoria["slug"]; ?></p>
+                    </div>
+                    <div class="col-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="modificar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="btn-modificar btn btn-primary btn-block text-left m-1" role="button"><i class="far fa-edit"></i> Modificar</a>
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <div class="row">
-                                <div class="col-6">
-                                    <a href="modificar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="btn-modificar btn btn-primary btn-block" role="button"><i class="far fa-edit fa-3x"></i><br />Modificar</a>
-                                </div>
-                                <div class="col-6 my-auto">
-                                    <a href="borrar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block " role="button"><i class="far fa-trash-alt fa-3x"></i><br />Eliminar</a>
-                                </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="borrar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block text-left m-1" role="button"><i class="far fa-trash-alt"></i> Eliminar</a>
                             </div>
                         </div>
                     </div>
+                </div>
                 <?php
                 }
                 ?>

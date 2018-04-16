@@ -10,9 +10,16 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
 }
 
+h1 {
+	text-shadow: -2px 1px 0px #ffffff;
+}
+
+
+a {
+	color: #18618e;
+}
 
 header {
-	height: 100px;
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#efefef+0,dcdede+22,d3d5d5+33,cfd1d1+50,cacccc+84,adb1b0+95,8e8e8e+100 */
 background: #efefef; /* Old browsers */
 background: -moz-linear-gradient(top, #efefef 0%, #dcdede 22%, #d3d5d5 33%, #cfd1d1 50%, #cacccc 84%, #adb1b0 95%, #8e8e8e 100%); /* FF3.6-15 */
@@ -79,10 +86,9 @@ button[type="submit"]{
 
 /* mensaje de error */
 .flash {
-	position: absolute;
+	position: relative;
 	width: 100%;
 	padding: 5px 0;
-	margin-top: -107px;
 	color: white;
 }
 .error {

@@ -78,9 +78,9 @@
             <header class="col-12">
                 <div class="row">
                     <div class="col-8">
-                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                        <h1 class="p-4">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
-                    <div class="col-4 text-right mt-3">                  
+                    <div class="col-4 text-right mt-3">          
                         <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
                     </div>
                 </div>
@@ -89,14 +89,15 @@
     </div>  
     <div class="container-fluid">
         <div class="row">
-            <div class="col-5 text-left">
+            <div class="col-5 text-left p-3">
                 <i class="fas fa-home fa-2x"></i><br />
-                <a href="gestion.php">MENÚ PRINCIPAL</a>
+                <a href="gestion.php">INICIO</a>
             </div>
         </div>
          <div class="row">
             <div class="col-s-12 col-md-9 mx-auto mt-4">
-                <a href="gestionCategorias.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
+                <i class="fas fa-arrow-alt-circle-left pl-3"></i>
+                <a href="gestionCategorias.php" class="confirmacion">VOLVER A CATEGORÍAS</a>
 
                 <div id="form-container" class="container">
                     <form action="modificar-categoria.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
