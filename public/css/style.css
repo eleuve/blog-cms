@@ -10,9 +10,6 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
 }
 
-a {	
-
-}
 
 header {
 	height: 100px;
@@ -22,7 +19,6 @@ background: -moz-linear-gradient(top, #efefef 0%, #dcdede 22%, #d3d5d5 33%, #cfd
 background: -webkit-linear-gradient(top, #efefef 0%,#dcdede 22%,#d3d5d5 33%,#cfd1d1 50%,#cacccc 84%,#adb1b0 95%,#8e8e8e 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(to bottom, #efefef 0%,#dcdede 22%,#d3d5d5 33%,#cfd1d1 50%,#cacccc 84%,#adb1b0 95%,#8e8e8e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#8e8e8e',GradientType=0 ); /* IE6-9 */
-	
 }
 
 form {

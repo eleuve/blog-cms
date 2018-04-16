@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Modificar categoría - Gestor</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.css">
     <link rel="stylesheet" href="../css/style.css">
 
     <?php
@@ -73,20 +74,52 @@
 </head>
 <body>
     <div class="container-fluid">
-        <a href="gestionCategorias.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
+        <div class="row">
+            <header class="col-12">
+                <div class="row">
+                    <div class="col-8">
+                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                    </div>
+                    <div class="col-4 text-right mt-3">                  
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                    </div>
+                </div>
+            </header>
+        </div>
+    </div>  
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5 text-left">
+                <i class="fas fa-home fa-2x"></i><br />
+                <a href="gestion.php">MENÚ PRINCIPAL</a>
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-s-12 col-md-9 mx-auto mt-4">
+                <a href="gestionCategorias.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
 
-        <h1>Editar categoría "<?=$nombre?>"</h1>
-
-        <form action="modificar-categoria.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
-
-            <label for="">Nombre:</label>
-            <input type="text" name="nombre" value="<?=$nombre?>" required><br />
-
-            <label for="">URL:</label>
-            <input type="text" name="url" value="<?=$url?>" required><br />
-
-            <input type="submit" value="Modificar categoria" name="modificar">
-        </form>
+                <div id="form-container" class="container">
+                    <form action="modificar-categoria.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
+                        <h2 class="text-center">Editar categoría "<?=$nombre?>"</h2>
+                        <div class="row">
+                            <div class="col-xsl-12 mx-auto">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input class="form-control" type="text" name="nombre" value="<?=$nombre?>" id="nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">URL:</label>
+                                    <input class="form-control" type="text" name="url" value="<?=$url?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit" name="modificar">Modificar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript">

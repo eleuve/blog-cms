@@ -26,10 +26,10 @@
             <header class="col-12">
                 <div class="row">
                     <div class="col-8">
-                        <h1 class="my-auto">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
-                    <div class="col-4 text-right">                  
-                        <a href="logout.php" class="pt-2"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                    <div class="col-4 text-right mt-3">                  
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
                     </div>
                 </div>
             </header>
@@ -39,12 +39,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-5 text-left">
-                <i class="fas fa-arrow-circle-left fa-2x"></i><br />
+                <i class="fas fa-home fa-2x"></i><br />
                 <a href="gestion.php">MENÚ PRINCIPAL</a>
             </div>
         </div>
         <div class="row">
-            <div class="col-s-12 col-md-9 mx-auto mt-4 text-center" style="background-color: pink;">
+            <div class="col-s-12 col-md-9 mx-auto mt-4 text-center">
                 <h2>Gestión de posts</h2>
                 <a href="crear-post.php" class="btn btn-primary text-center my-3" role="button">CREAR NUEVO POST</a>
                 <?php
@@ -69,15 +69,15 @@
                         <div class="col-9 text-left">
                             <span class="fecha"><?php echo $post["fecha"]; ?></span>
                             <p><strong><?php echo $post["titulo"]; ?></strong><br/>
-                            <?php echo $post["entradilla"]; ?>
+                            <?php echo $post["entradilla"]; ?><br/>
                             <span class="contenido-reducido"><?php echo substr($post["contenido"], 0, 200); ?></span></p>
                         </div>
                         <div class="col-3">
-                            <div class="row" style="background-color: orange;">
-                                <div class="col-6" style="background-color: lightgreen;">
+                            <div class="row">
+                                <div class="col-6">
                                     <a href="modificar-post.php?id=<?php echo $post["idpost"]; ?>" class="btn-modificar btn btn-primary btn-block" role="button"><i class="far fa-edit fa-3x"></i><br />Modificar</a>
                                 </div>
-                                <div class="col-6 my-auto" style="background-color: lightblue;">
+                                <div class="col-6 my-auto">
                                     <a href="borrar-post.php?id=<?php echo $post["idpost"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block " role="button"><i class="far fa-trash-alt fa-3x"></i><br />Eliminar</a>
                                 </div>
                             </div>

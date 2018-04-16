@@ -22,19 +22,19 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<header class="col-12">
-				<div class="row">
-					<div class="col-8">
-						<h1 class="my-auto">Bienvenido, <?= $_SESSION["username"] ?></h1>
-					</div>
-					<div class="col-4 text-right">					
-						<a href="logout.php" class="pt-2"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
-					</div>
-				</div>
-			</header>
-		</div>
-	</div>
+        <div class="row">
+            <header class="col-12">
+                <div class="row">
+                    <div class="col-8">
+                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                    </div>
+                    <div class="col-4 text-right mt-3">                  
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                    </div>
+                </div>
+            </header>
+        </div>
+    </div>
 
 	<div class="container-fluid">
 		<div class="row">

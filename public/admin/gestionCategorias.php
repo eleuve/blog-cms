@@ -23,17 +23,17 @@
 </head>
 <body>
     <div class="container-fluid">
-        <header class="row">
-            <div class="col-6">
-                <h1>Bienvenido, <?= $_SESSION["username"] ?></h1>
-            </div>
-            <div class="col-6 text-right">
-                <a href="logout.php">Cerrar sesion</a>
-            </div>
-        </header>
-        <div>
-            <i class="fas fa-arrow-circle-left"></i><br />
-            <a href="gestion.php">VOLVER AL MENÚ PRINCIPAL</a>
+        <div class="row">
+            <header class="col-12">
+                <div class="row">
+                    <div class="col-8">
+                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                    </div>
+                    <div class="col-4 text-right mt-3">                  
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                    </div>
+                </div>
+            </header>
         </div>
     </div>
 
@@ -49,9 +49,14 @@
     </div>
     
     <div class="container-fluid">
-        
         <div class="row">
-            <div class="col-s-12 col-md-9 mx-auto mt-4 text-center" style="background-color: pink;">
+            <div class="col-5 text-left">
+                <i class="fas fa-home fa-2x"></i><br />
+                <a href="gestion.php">MENÚ PRINCIPAL</a>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-s-12 col-md-9 mx-auto mt-4 text-center">
                 <h2>Gestión de categorías</h2>
                 <a href="crear-categoria.php" class="btn btn-primary text-center my-3" role="button">CREAR UNA NUEVA CATEGORÍA</a>
 
@@ -71,9 +76,12 @@
                         </div>
                         <div class="col-3">
                             <div class="row">
-                                <a href="modificar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="col-6">MODIFICAR CATEGORÍA</a>
-
-                                <a href="borrar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="confirmacion col-6">BORRAR CATEGORÍA</a>
+                                <div class="col-6">
+                                    <a href="modificar-post.php?id=<?php echo $post["idpost"]; ?>" class="btn-modificar btn btn-primary btn-block" role="button"><i class="far fa-edit fa-3x"></i><br />Modificar</a>
+                                </div>
+                                <div class="col-6 my-auto">
+                                    <a href="borrar-post.php?id=<?php echo $post["idpost"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block " role="button"><i class="far fa-trash-alt fa-3x"></i><br />Eliminar</a>
+                                </div>
                             </div>
                         </div>
                     </div>

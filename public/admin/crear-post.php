@@ -87,22 +87,23 @@ if (isset($_POST["submit"])) {
 </head>
 <body>
     <div class="container-fluid">
-        <header class="row">
-            <div class="col-6">
-                <h1>Bienvenido, <?= $_SESSION["username"] ?></h1>
-            </div>
-            <div class="col-6 text-right">
-                <a href="logout.php">Cerrar sesion</a>
-            </div>
-        </header>
+        <div class="row">
+            <header class="col-12">
+                <div class="row">
+                    <div class="col-8">
+                        <h1 class="pt-3">Bienvenido, <?= $_SESSION["username"] ?></h1>
+                    </div>
+                    <div class="col-4 text-right mt-3">                  
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                    </div>
+                </div>
+            </header>
+        </div>
         <div>
             <i class="fas fa-arrow-circle-left"></i><br />
             <a href="gestion.php">VOLVER AL MENÚ PRINCIPAL</a>
         </div>
     </div>
-
-
-
 
 
     <div class="container-fluid">
@@ -113,9 +114,9 @@ if (isset($_POST["submit"])) {
 
                 <div id="form-container" class="container">
                     <form action="crear-post.php" method="post" enctype="multipart/form-data">
-
+                       <h2 class="text-center">Crear post</h2>
                         <div class="row">
-                            <div class="col-xsl-12">
+                            <div class="col-xsl-12 mx-auto">
                                 <div class="form-group">
                                     <label for="categoria">Categoría</label>
                                     <select class="form-control" name="categoria">
@@ -133,24 +134,23 @@ if (isset($_POST["submit"])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="titulo">Título</label>
-                                    <input class="form-control" type="text" name="titulo">
+                                    <input class="form-control" type="text" name="titulo" id="titulo">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Entradilla</label>
-                                    <input class="form-control" type="text" name="entradilla"><br/>
+                                    <label for="entradilla">Entradilla</label>
+                                    <input class="form-control" type="text" name="entradilla" id="entradilla"><br/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Imagen</label>
-                                    <input class="form-control" type="file" name="imagen"/><br/>
+                                    <label for="imagen">Imagen</label>
+                                    <input class="form-control" type="file" name="imagen" id="imagen"/><br/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Alt de la imagen</label>
-                                    <input class="form-control" type="text" name="altimagen"/><br/>
+                                    <label for="altimagen">Alt de la imagen</label>
+                                    <input class="form-control" type="text" name="altimagen" id="altimagen"/><br/>
                                 </div>
                                 <div class="form-group">
                                     <label for="entrada">Entrada</label>
-                                    <textarea class="form-control" name="entrada">
-                                        
+                                    <textarea class="form-control" name="entrada" id="entrada">                   
                                     </textarea>
                                 </div>
                                 <div class="form-group">

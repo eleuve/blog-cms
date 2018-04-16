@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,13 +8,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog - Francisco Vidal</title>
+    <title>Blog  - Francisco Vidal</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/blog-post.css" rel="stylesheet">
+    <link href="css/blog-home.css" rel="stylesheet">
+
+    <?php
+
+          include_once '../DB/conexion.php';
+
+    ?>
 
   </head>
 
@@ -54,54 +59,79 @@
 
       <div class="row">
 
-        <!-- Post Content Column -->
-        <div class="col-lg-8">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
 
-        	<?php
+          <h1 class="my-4">Entradas
+            <small>Secondary Text</small>
+          </h1>
 
-        	include_once '../DB/conexion.php';
+          <!-- Blog Post -->
+          <div class="card mb-4">
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            <div class="card-body">
+              <h2 class="card-title">Post Title</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+            </div>
+            <div class="card-footer text-muted">
+              Publicado January 1, 2017
+            </div>
+          </div>
 
+          <!-- Blog Post -->
+          <div class="card mb-4">
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            <div class="card-body">
+              <h2 class="card-title">Post Title</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+            </div>
+            <div class="card-footer text-muted">
+              Publicado January 1, 2017
+            </div>
+          </div>
 
-			// vamos a listar los posts que hay en la base de datos...
+          <!-- Blog Post -->
+          <div class="card mb-4">
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            <div class="card-body">
+              <h2 class="card-title">Post Title</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+            </div>
+            <div class="card-footer text-muted">
+              Publicado January 1, 2017
+            </div>
+          </div>
 
-        	$sql = "SELECT * FROM post WHERE activo = 1 ORDER BY fecha DESC LIMIT 1";
+          <!-- Pagination -->
+          <ul class="pagination justify-content-center mb-4">
+            <li class="page-item">
+              <a class="page-link" href="#">&larr; Older</a>
+            </li>
+            <li class="page-item disabled">
+              <a class="page-link" href="#">Newer &rarr;</a>
+            </li>
+          </ul>
 
-        	$result = mysqli_query($con, $sql);
-
-        	while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        		?>
-        		
-
-          <!-- Title -->
-          <h1 class="mt-4"><?php echo $post["titulo"]; ?></h1>
-          <h2 class="mt-4"><?php echo $post["entradilla"]; ?></h1>
-
-          <hr>
-
-          <!-- Date/Time -->
-          <p>Publicado <?php echo $post["fecha"]; ?></p>
-
-          <hr>
-
-          <!-- Preview Image -->
-          <img class="img-fluid rounded" src="uploads/<?php echo $post["imagen"] ?>" alt="<?php echo $post["altimagen"]?>" width="900">
-
-          <hr>
-
-          <!-- Post Content -->
-          <?php echo $post["contenido"]; ?>
-
-          <hr>
-
-		<?php
-        	}
-
-
-        	?>
         </div>
 
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
+
+          <!-- Search Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Search</h5>
+            <div class="card-body">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
 
           <!-- Categories Widget -->
           <div class="card my-4">
@@ -109,8 +139,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-6">
-                	<ul class="list-unstyled mb-0">
-                	<?php
+                  <ul class="list-unstyled mb-0">
+                    <?php
                       // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
                         $resultado = mysqli_query($con, "SELECT * FROM categoria");
                         while ($categoria = mysqli_fetch_array(
@@ -120,7 +150,7 @@
                         <?php
                         }
                         ?>
-                  	</ul>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -151,10 +181,9 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
   </body>
 
 </html>
-

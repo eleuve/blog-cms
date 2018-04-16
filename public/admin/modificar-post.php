@@ -133,6 +133,7 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Modificar post - Gestor</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -153,13 +154,19 @@ if (isset($_GET["id"])) {
     </div>
 
      <div class="container-fluid">
-        <h2 class="text-center">Editar post "<?=$titulo?>"</h2>
+        <div class="row">
+            <div class="col-5 text-left">
+                <i class="fas fa-home fa-2x"></i><br />
+                <a href="gestion.php">MENÚ PRINCIPAL</a>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-s-12 col-md-9 mx-auto mt-4">
                 <a href="gestionPosts.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
                 <div id="form-container" class="container">
                     <form action="modificar-post.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
+                        <h2 class="text-center">Editar post "<?=$titulo?>"</h2>
                         <div class="row">
                             <div class="col-xsl-12 mx-auto">
                                 <div class="form-group">
