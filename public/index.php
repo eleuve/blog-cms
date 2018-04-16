@@ -65,8 +65,19 @@
 
         include_once '../DB/conexion.php';
         include_once 'paginacion.php';
+
+        ?>
+          <!-- Pagination -->
+          <ul class="pagination justify-content-center mb-4">
+              <?php
+              $printPaginationLinks();
+              ?>
+          </ul>
+        <?php
         
         $sql = "SELECT * FROM post WHERE activo = 1 ORDER BY fecha DESC LIMIT $offset, $postsPorPag";
+
+//        die($sql);
 
         $result = mysqli_query($con, $sql);
 

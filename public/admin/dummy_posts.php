@@ -1,6 +1,6 @@
 <?php
 
-$totalPosts = 55;
+$totalPosts = 800;
 
 require_once "../../DB/conexion.php";
 
