@@ -16,9 +16,9 @@ $postsPorPag = 10;
 //está función redondea hacia arriba. si hay 10 posts por páginas y tenemos 54, en la última pag habrá únicamente 4 posts. Ceil redondea hacia arriba
 $paginas = ceil($numeroPosts / $postsPorPag);
 
-if (isset($_GET['paginaActual']) && is_numeric($_GET['paginaActual'])) {
+if (isset($_GET['pagina']) && is_numeric($_GET['pagina'])) {
      // cast var as int
-    $paginaActual= (int) $_GET['paginaActual'];
+    $paginaActual = (int) $_GET['pagina'];
 } else {
     $paginaActual = 1;
 } 
@@ -36,3 +36,14 @@ if ($paginaActual < 1) {
 } 
 
 $offset = ($paginaActual - 1) * $postsPorPag;
+
+
+$printPaginationLinks = function() use ($paginas) {
+    for ($cont = 1; $cont <= $paginas; $cont++) {
+        ?>
+        <li class="page-item ">
+            <a class="page-link" href="index.php?pagina=<?= $cont ?>"><?= $cont ?></a>
+        </li>
+        <?php
+    }
+};

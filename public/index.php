@@ -65,7 +65,6 @@
 
         include_once '../DB/conexion.php';
         include_once 'paginacion.php';
-
         
         $sql = "SELECT * FROM post WHERE activo = 1 ORDER BY fecha DESC LIMIT $offset, $postsPorPag";
 
@@ -90,33 +89,9 @@
 
         <!-- Pagination -->
         <ul class="pagination justify-content-center mb-4">
-          <?php
-            $deshabilitado = "disabled";
-
-            if($paginaActual == 1 || $paginaActual < 1){
-              $deshabilitado = "disabled";
-            }else {
-              $deshabilitado = "";
-            }
-          ?>
-          <li class="page-item <?= $deshabilitado ?>">
-            <a class="page-link" href="'{$_SERVER['PHP_SELF']}?paginaActual=1'">&larr; Más recientes</a>
-          </li>
-
-          <?php
-            $deshabilitado = "disabled";
-
-            if($paginaActual == $paginas || $paginaActual > $paginas){
-              $deshabilitado = "disabled";
-            }else {
-              $deshabilitado = "";
-            }
-      
-          ?>
-          <li class="page-item <?= $deshabilitado ?>">
-            <a class="page-link" href="'{$_SERVER['PHP_SELF']}?paginaActual=2">Más antiguas &rarr;</a>
-          </li>
-
+            <?php
+                $printPaginationLinks();
+            ?>
         </ul>
 
       </div>
