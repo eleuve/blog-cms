@@ -3,13 +3,13 @@
 include_once '../DB/conexion.php';
 
 // Template por defecto, puede ser categoria (line 12)
-$template = "index";
+$template = "index.php?";
 
 $sql = "SELECT COUNT(*) FROM post";
 
 if (isset($filtroCategoriaId)) {
     $sql .= " WHERE idcategoria = '" . $filtroCategoriaId . "'";
-    $template = "categoria";
+    $template = "categoria.php?slug=" . $_GET["slug"] . "&";
 }
 
 $resultado = mysqli_query($con, $sql);
@@ -62,7 +62,7 @@ $printPaginationLinks = function() use ($paginas, $paginaActual, $template) {
     if ($paginaActual !== 1) {
         ?>
         <li class="page-item ">
-            <a class="page-link" href="<?= $template ?>.php?pagina=1">1</a>
+            <a class="page-link" href="<?= $template ?>pagina=1">1</a>
         </li>
         <?php
         if ($paginaActual > 5) {
@@ -83,7 +83,7 @@ $printPaginationLinks = function() use ($paginas, $paginaActual, $template) {
         if ($cont > 1) {
             ?>
             <li class="page-item ">
-                <a class="page-link" href="<?= $template ?>.php?pagina=<?= $cont ?>"><?= $cont ?></a>
+                <a class="page-link" href="<?= $template ?>pagina=<?= $cont ?>"><?= $cont ?></a>
             </li>
             <?php
         }
@@ -103,7 +103,7 @@ $printPaginationLinks = function() use ($paginas, $paginaActual, $template) {
         if ($cont < $paginas) {
             ?>
             <li class="page-item ">
-                <a class="page-link" href="<?= $template ?>.php?pagina=<?= $cont ?>"><?= $cont ?></a>
+                <a class="page-link" href="<?= $template ?>pagina=<?= $cont ?>"><?= $cont ?></a>
             </li>
             <?php
         }
@@ -118,7 +118,7 @@ $printPaginationLinks = function() use ($paginas, $paginaActual, $template) {
         }
         ?>
         <li class="page-item">
-            <a class="page-link" href="<?= $template ?>.php?pagina=<?= $paginas ?>"><?= $paginas ?></a>
+            <a class="page-link" href="<?= $template ?>pagina=<?= $paginas ?>"><?= $paginas ?></a>
         </li>
         <?php
     }
