@@ -45,15 +45,6 @@ if ($paginaActual < 1) {
 
 $offset = ($paginaActual - 1) * $postsPorPag;
 
-$printPaginationLinks = function() use ($paginas) {
-    for ($cont = 1; $cont <= $paginas; $cont++) {
-        ?>
-        <li class="page-item ">
-            <a class="page-link" href="index.php?pagina=<?= $cont ?>"><?= $cont ?></a>
-        </li>
-        <?php
-    }
-};
 
 /**
  * hace falta... mostrar siempre no mas de 9 botones
@@ -61,7 +52,6 @@ $printPaginationLinks = function() use ($paginas) {
  * y como boton de la izquierda del todo, antes del 12... un  Primera pagina, y despues del 18 a la derecha un... Ultima pagina
  * [first] [12] [13] [14] [ 15 ] [16] [17] [18] [last]
  */
-
 
 $printPaginationLinks = function() use ($paginas, $paginaActual) {
     // Si no estamos en la pagina UNO, se mostrara Primera pagina, si estamos, se muestra pero como activa
