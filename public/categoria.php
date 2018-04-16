@@ -64,6 +64,23 @@
         <?php
 
         include_once '../DB/conexion.php';
+
+
+
+        if (isset($_GET["slug"])) {
+
+            $slug = $_GET["slug"];
+
+            $sql = "SELECT idcategoria FROM categoria WHERE slug='$slug'";
+
+            $resultado = mysqli_query($con, $sql);
+            $r = mysqli_fetch_object($resultado);
+
+            $id = $r->idcategoria;
+
+            $filtroCategoriaId = $id;
+        }
+
         include_once 'paginacion.php';
 
         ?>
@@ -76,15 +93,6 @@
         <?php
 
         if (isset($_GET["slug"])) {
-
-          $slug = $_GET["slug"];
-
-          $sql = "SELECT idcategoria FROM categoria WHERE slug='$slug'";
-
-          $resultado = mysqli_query($con, $sql);
-          $r = mysqli_fetch_object($resultado);
-
-          $id = $r->idcategoria;
 
           $sql = "SELECT * FROM post WHERE idcategoria='$id' ORDER BY fecha DESC LIMIT $offset, $postsPorPag";
 

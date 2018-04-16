@@ -2,10 +2,14 @@
 
 include_once '../DB/conexion.php';
 
+// Template por defecto, puede ser categoria (line 12)
+$template = "index";
+
 $sql = "SELECT COUNT(*) FROM post";
 
 if (isset($filtroCategoriaId)) {
     $sql .= " WHERE idcategoria = '" . $filtroCategoriaId . "'";
+    $template = "categoria";
 }
 
 $resultado = mysqli_query($con, $sql);
@@ -53,12 +57,12 @@ $offset = ($paginaActual - 1) * $postsPorPag;
  * [first] [12] [13] [14] [ 15 ] [16] [17] [18] [last]
  */
 
-$printPaginationLinks = function() use ($paginas, $paginaActual) {
+$printPaginationLinks = function() use ($paginas, $paginaActual, $template) {
     // Si no estamos en la pagina UNO, se mostrara Primera pagina, si estamos, se muestra pero como activa
     if ($paginaActual !== 1) {
         ?>
         <li class="page-item ">
-            <a class="page-link" href="index.php?pagina=1">1</a>
+            <a class="page-link" href="<?= $template ?>.php?pagina=1">1</a>
         </li>
         <?php
         if ($paginaActual > 5) {
@@ -79,7 +83,7 @@ $printPaginationLinks = function() use ($paginas, $paginaActual) {
         if ($cont > 1) {
             ?>
             <li class="page-item ">
-                <a class="page-link" href="index.php?pagina=<?= $cont ?>"><?= $cont ?></a>
+                <a class="page-link" href="<?= $template ?>.php?pagina=<?= $cont ?>"><?= $cont ?></a>
             </li>
             <?php
         }
@@ -99,7 +103,7 @@ $printPaginationLinks = function() use ($paginas, $paginaActual) {
         if ($cont < $paginas) {
             ?>
             <li class="page-item ">
-                <a class="page-link" href="index.php?pagina=<?= $cont ?>"><?= $cont ?></a>
+                <a class="page-link" href="<?= $template ?>.php?pagina=<?= $cont ?>"><?= $cont ?></a>
             </li>
             <?php
         }
@@ -114,7 +118,7 @@ $printPaginationLinks = function() use ($paginas, $paginaActual) {
         }
         ?>
         <li class="page-item">
-            <a class="page-link" href="index.php?pagina=<?= $paginas ?>"><?= $paginas ?></a>
+            <a class="page-link" href="<?= $template ?>.php?pagina=<?= $paginas ?>"><?= $paginas ?></a>
         </li>
         <?php
     }
