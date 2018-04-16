@@ -16,12 +16,6 @@
     <!-- Custom styles for this template -->
     <link href="css/blog-home.css" rel="stylesheet">
 
-    <?php
-
-          include_once '../DB/conexion.php';
-
-    ?>
-
   </head>
 
   <body>
@@ -67,51 +61,37 @@
           </h1>
 
           <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Publicado January 1, 2017
-            </div>
-          </div>
+          <?php
 
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Publicado January 1, 2017
-            </div>
-          </div>
+          include_once '../DB/conexion.php';
+          $sql = "SELECT * FROM post WHERE activo = 1 ORDER BY fecha DESC";
 
-          <!-- Blog Post -->
+          $result = mysqli_query($con, $sql);
+
+          while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            ?>   
           <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            <img class="card-img-top" src="uploads/<?php echo $post["imagen"] ?>" alt="<?php echo $post["altimagen"]?>">
             <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              <h2 class="card-title"><?php echo $post["titulo"]; ?></h2>
+              <p class="card-text"><?php echo $post["entradilla"]; ?></p>
             </div>
             <div class="card-footer text-muted">
-              Publicado January 1, 2017
+              Publicado <?php echo $post["fecha"]; ?>
             </div>
           </div>
+          <?php
+          }
+
+          ?>
 
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
             <li class="page-item">
-              <a class="page-link" href="#">&larr; Older</a>
+              <a class="page-link" href="#">&larr; Más antiguas</a>
             </li>
             <li class="page-item disabled">
-              <a class="page-link" href="#">Newer &rarr;</a>
+              <a class="page-link" href="#">Más recientes &rarr;</a>
             </li>
           </ul>
 
@@ -122,12 +102,12 @@
 
           <!-- Search Widget -->
           <div class="card my-4">
-            <h5 class="card-header">Search</h5>
+            <h5 class="card-header">Búsqueda</h5>
             <div class="card-body">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
+                <input type="text" class="form-control">
                 <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
+                  <button class="btn btn-secondary" type="button">Buscar</button>
                 </span>
               </div>
             </div>

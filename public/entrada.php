@@ -78,13 +78,26 @@
 
           <hr>
 
+          <?php 
+
+            $idcategoria = $post["idcategoria"];
+
+            $consulta = mysqli_query($con, "SELECT nombre FROM categoria WHERE idcategoria=" . $idcategoria);
+
+            $row = $consulta->fetch_assoc();
+
+            $fecha = strtotime($post["fecha"]);
+            $formatoFecha = date("d/m/y H:i", $fecha)
+
+          ?>
+
           <!-- Date/Time -->
-          <p>Publicado <?php echo $post["fecha"]; ?> | Categoría  <?php echo $post["idcategoria"]; ?></p>
+          <p>Publicado <?php echo $formatoFecha ?> | Categoría  <?php echo $row["nombre"]; ?></p>
 
           <hr>
 
           <!-- Preview Image -->
-          <img class="img-fluid rounded" src="uploads/<?php echo $post["imagen"] ?>" alt="<?php echo $post["altimagen"]?>" width="900">
+          <img class="img-fluid rounded imagen-entrada" src="uploads/<?php echo $post["imagen"] ?>" alt="<?php echo $post["altimagen"]?>" width="900">
 
           <hr>
 

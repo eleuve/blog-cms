@@ -8,13 +8,16 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] != true) {
 // Necesitamos la variable que nos facilita conexion de la base de datos: $con
 require_once "../../DB/conexion.php";
 
+
+require_once "slug.php";
+
 // IF que solo se ejecuta si hay POST enviar (es el submit input)
 if (isset($_POST["enviar"])) {
     /**
      * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
      */
     $nombre = $_POST["nombre"];
-    $url = $_POST["url"];
+    $url = slugify($nombre);
 
     // Preparamos la fecha para el SQL
     $datetimeHoy = new \Datetime("now");
@@ -98,10 +101,6 @@ if (isset($_POST["enviar"])) {
                                 <div class="form-group">
                                     <label for="nombre">Nombre:</label>
                                     <input class="form-control" type="text" name="nombre" id="nombre" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="slug">Url:</label>
-                                    <input class="form-control" type="text" name="url" id="slug" required>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit" name="enviar">Crear</button>

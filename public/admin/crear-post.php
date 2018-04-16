@@ -138,15 +138,18 @@ if (isset($_POST["submit"])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="entradilla">Entradilla</label>
-                                    <input class="form-control" type="text" name="entradilla" id="entradilla"><br/>
+                                    <input class="form-control" type="text" name="entradilla" id="entradilla">
                                 </div>
                                 <div class="form-group">
                                     <label for="imagen">Imagen</label>
-                                    <input class="form-control" type="file" name="imagen" id="imagen"/><br/>
+                                    <input class="form-control" type="file" name="imagen" id="imagen"/>
+                                    <small>El tamaño recomendado es de 900x300px.</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="altimagen">Alt de la imagen</label>
-                                    <input class="form-control" type="text" name="altimagen" id="altimagen"/><br/>
+                                    <input class="form-control" type="text" name="altimagen" id="altimagen"/>
+                                    <small>Este campo ayudará a las personas que no puedan ver la imagen o usen lector de pantalla.</small>
+
                                 </div>
                                 <div class="form-group">
                                     <label for="entrada">Entrada</label>
@@ -154,7 +157,7 @@ if (isset($_POST["submit"])) {
                                     </textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="checkbox" name="publico" value="público">Público<br><br/>
+                                    <input type="checkbox" name="publico" value="público">Público<br>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit" name="submit">Crear</button>

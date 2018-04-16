@@ -194,13 +194,14 @@ if (isset($_GET["id"])) {
                                     <input class="form-control" type="text" name="entradilla" value="<?=$entradilla?>" required>
                                 </div>
                                 <div class="form-group">
-
                                     <label for="">Imagen:</label>
                                     <input class="form-control" type="file" name="imagen"  value="<?=$file?>">
+                                    <small>El tamaño recomendado es de 900x300.</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Alt de la imagen:</label>
                                     <input class="form-control" type="text" name="altimagen"  value="<?=$altimagen?>">
+                                    <small>Este campo ayudará a las personas que no puedan ver la imagen o usen lector de pantalla.</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Entrada:</label>

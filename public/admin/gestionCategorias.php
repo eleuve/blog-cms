@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Modificar categoría - Gestor</title>
+    <title>Gestor de categorías</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/fontawesome-all.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -16,6 +16,8 @@
     }
 
     include_once '../../DB/conexion.php';
+
+    include_once 'slug.php';
     ?>
 
 
@@ -71,16 +73,17 @@
                     <div class="row elemento">
                         <div class="col-9 text-left">
                             <span><?php echo $categoria["fecha"]; ?></span>
-                            <p>Nombre: <?php echo $categoria["nombre"]; ?> <br />
-                            Enlace: <?php echo $categoria["slug"]; ?></p>
+                            <p>Nombre: <?php echo $categoria["nombre"]; ?><br/>
+                                URL: <?php echo $categoria["slug"]; ?></p>
+                            </p>
                         </div>
                         <div class="col-3">
                             <div class="row">
                                 <div class="col-6">
-                                    <a href="modificar-post.php?id=<?php echo $post["idpost"]; ?>" class="btn-modificar btn btn-primary btn-block" role="button"><i class="far fa-edit fa-3x"></i><br />Modificar</a>
+                                    <a href="modificar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="btn-modificar btn btn-primary btn-block" role="button"><i class="far fa-edit fa-3x"></i><br />Modificar</a>
                                 </div>
                                 <div class="col-6 my-auto">
-                                    <a href="borrar-post.php?id=<?php echo $post["idpost"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block " role="button"><i class="far fa-trash-alt fa-3x"></i><br />Eliminar</a>
+                                    <a href="borrar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block " role="button"><i class="far fa-trash-alt fa-3x"></i><br />Eliminar</a>
                                 </div>
                             </div>
                         </div>

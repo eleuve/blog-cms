@@ -16,6 +16,7 @@
     }
 
     include_once '../../DB/conexion.php';
+    include_once 'slug.php';
 
     if (isset($_GET["id"])) {
 
@@ -27,7 +28,6 @@
         //Metemos en variables los resultados de la consulta
         while($row = $resultadoDelQuery->fetch_assoc()) {
             $nombre = $row["nombre"];
-            $url = $row["slug"];
         }
 
 
@@ -38,7 +38,7 @@
              */
             $id = $_GET["id"];
             $nombre = $_POST["nombre"];
-            $url = $_POST["url"];
+            $url = slugify($nombre);
 
             $sql = sprintf(
                 "UPDATE categoria 
@@ -106,10 +106,6 @@
                                 <div class="form-group">
                                     <label for="nombre">Nombre:</label>
                                     <input class="form-control" type="text" name="nombre" value="<?=$nombre?>" id="nombre" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">URL:</label>
-                                    <input class="form-control" type="text" name="url" value="<?=$url?>" required>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit" name="modificar">Modificar</button>
