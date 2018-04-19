@@ -25,7 +25,10 @@ if (isset($_GET["id"])) {
     }
     */
 
-    $sql = "DELETE FROM post WHERE idpost = " . $_GET["id"];
+    $postId = $_GET["id"];
+    $escapedPostId = mysqli_real_escape_string($con, $postId);
+
+    $sql = "DELETE FROM post WHERE idpost = " . $escapedPostId;
     
     // ejecuta la sql com oya sabes
     
