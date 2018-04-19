@@ -66,112 +66,112 @@
        $post = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
 
        if ($post === NULL) {
-           header('Location: 404.php');
-           die;
+         header('Location: 404.php');
+         die;
        }
 
-        ?>
+       ?>
 
 
-        <!-- Title -->
-        <h1 class="mt-4"><?php echo $post["titulo"]; ?></h1>
-        <h2 class="mt-4"><?php echo $post["entradilla"]; ?></h2>
+       <!-- Title -->
+       <h1 class="mt-4"><?php echo $post["titulo"]; ?></h1>
+       <h2 class="mt-4"><?php echo $post["entradilla"]; ?></h2>
 
-          <hr>
+       <hr>
 
-          <?php 
+       <?php 
 
-          $idcategoria = $post["idcategoria"];
+       $idcategoria = $post["idcategoria"];
 
-          $consulta = mysqli_query($con, "SELECT nombre FROM categoria WHERE idcategoria=" . $idcategoria);
+       $consulta = mysqli_query($con, "SELECT nombre FROM categoria WHERE idcategoria=" . $idcategoria);
 
-          $row = $consulta->fetch_assoc();
+       $row = $consulta->fetch_assoc();
 
-          $fecha = strtotime($post["fecha"]);
-          $formatoFecha = date("d/m/y H:i", $fecha)
+       $fecha = strtotime($post["fecha"]);
+       $formatoFecha = date("d/m/y H:i", $fecha)
 
-          ?>
+       ?>
 
-          <!-- Date/Time -->
-          <p>Publicado <?php echo $formatoFecha ?> | Categoría  <?php echo $row["nombre"]; ?></p>
+       <!-- Date/Time -->
+       <p>Publicado <?php echo $formatoFecha ?> | Categoría  <?php echo $row["nombre"]; ?></p>
 
-          <hr>
+       <hr>
 
-          <!-- Preview Image -->
-          <img class="img-fluid rounded imagen-entrada" src="uploads/<?php echo $post["imagen"] ?>" alt="<?php echo $post["altimagen"]?>" width="900">
+       <!-- Preview Image -->
+       <img class="img-fluid rounded imagen-entrada" src="uploads/<?php echo $post["imagen"] ?>" alt="<?php echo $post["altimagen"]?>" width="900">
 
-          <hr>
+       <hr>
 
-          <!-- Post Content -->
-          <?php echo $post["contenido"]; ?>
+       <!-- Post Content -->
+       <?php echo $post["contenido"]; ?>
 
-          <hr>
-      </div>
+       <hr>
+     </div>
 
-      <!-- Sidebar Widgets Column -->
-      <div class="col-md-4">
+     <!-- Sidebar Widgets Column -->
+     <div class="col-md-4">
 
-        <!-- Categories Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Categorías</h5>
-          <div class="card-body">
-            <div class="row">
-              <ul class="list-unstyled mb-0">
+      <!-- Categories Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Categorías</h5>
+        <div class="card-body">
+          <div class="row">
+            <ul class="list-unstyled mb-0">
               <?php
                       // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
               $resultado = mysqli_query($con, "SELECT * FROM categoria");
               while ($categoria = mysqli_fetch_array(
                 $resultado,MYSQLI_ASSOC)) {
                   ?>
-                  <li><a href="<?= $categoria["slug"] ?>"><?= $categoria["nombre"] ?></a></li>
+                  <li><a href="categoria.php?slug=<?= $categoria["slug"] ?>"><?= $categoria["nombre"] ?></a></li>
                   <?php
                 }
                 ?>
-                </ul>
-              </div>
+              </ul>
             </div>
           </div>
+        </div>
 
-          <!-- Side Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Otras entradas</h5>
-            <div class="card-body">
-              <div class="entrada-lateral">
-                <p><strong>Título</strong></p>
-                <img src="uploads/mapa.png" alt="mapaa" class="img-fluid rounded" style="max-height: 200px;">
-                <p>Entradillaaa muy interesante bla bla bla sobre el cambio climático.</p>
-                <hr>    
-              </div>
-              <div class="entrada-lateral">
-                <p><strong>Título</strong></p>
-                <img src="uploads/mapa.png" alt="mapaa" class="img-fluid rounded" style="max-height: 200px;">
-                <p>Entradillaaa muy interesante bla bla bla sobre el cambio climático.</p>
-                <hr>    
-              </div>
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Otras entradas</h5>
+          <div class="card-body">
+            <div class="entrada-lateral">
+              <p><strong>Título</strong></p>
+              <img src="uploads/mapa.png" alt="mapaa" class="img-fluid rounded" style="max-height: 200px;">
+              <p>Entradillaaa muy interesante bla bla bla sobre el cambio climático.</p>
+              <hr>    
+            </div>
+            <div class="entrada-lateral">
+              <p><strong>Título</strong></p>
+              <img src="uploads/mapa.png" alt="mapaa" class="img-fluid rounded" style="max-height: 200px;">
+              <p>Entradillaaa muy interesante bla bla bla sobre el cambio climático.</p>
+              <hr>    
             </div>
           </div>
-
         </div>
 
       </div>
-      <!-- /.row -->
 
     </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Francisco Vidal 2018</p>
+    </div>
     <!-- /.container -->
+  </footer>
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Francisco Vidal 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
 
-  </body>
-
-  </html>
+</html>
 

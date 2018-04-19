@@ -7,6 +7,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] != true) {
 
 // Necesitamos la variable que nos facilita conexion de la base de datos: $con
 require_once "../../DB/conexion.php";
+require_once "slug.php";
+
 
 // IF que solo se ejecuta si hay POST enviar (es el submit input)
 if (isset($_POST["submit"])) {
@@ -41,7 +43,7 @@ if (isset($_POST["submit"])) {
 
     // Preparamos el SQL
     $sql = sprintf(
-        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s')",
+        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`, `slug`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s', '%s')",
         "NULL",
         $titulo,
         $entradilla,
@@ -50,7 +52,8 @@ if (isset($_POST["submit"])) {
         $idCategoria,
         $file["name"],
         $esPublico,
-        $altimagen
+        $altimagen,
+        slugify($titulo)
     );
 
     // Ejecutamos el SQL con la respectiva conexion ($con)

@@ -81,16 +81,21 @@
 
         $result = mysqli_query($con, $sql);
 
+        
+
         while ($post = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+          $fecha = strtotime($post["fecha"]);
+          $formatoFecha = date("d/m/y H:i", $fecha)
           ?>   
           <div class="card mb-4">
             <img class="card-img-top" src="uploads/<?php echo $post["imagen"] ?>" alt="<?php echo $post["altimagen"]?>">
             <div class="card-body">
-              <a href="entrada.php?slug=<?= $post['slug'] ?>"><h2 class="card-title"><?php echo $post["titulo"]; ?></h2></a>
+              <a href="entrada.php?slug=<?=$post['slug'] ?>"><h2 class="card-title"><?php echo $post["titulo"]; ?></h2></a>
               <p class="card-text"><?php echo $post["entradilla"]; ?></p>
             </div>
             <div class="card-footer text-muted">
-              Publicado <?php echo $post["fecha"]; ?>
+              Publicado <?php echo $formatoFecha ?>
             </div>
           </div>
           <?php
@@ -128,7 +133,7 @@
           <h5 class="card-header">Categorías</h5>
           <div class="card-body">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-12">
                 <ul class="list-unstyled mb-0">
                   <?php
                       // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.

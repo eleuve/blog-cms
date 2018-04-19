@@ -74,7 +74,7 @@ if (isset($_GET["id"])) {
 
             $sql = sprintf(
                 "UPDATE post 
-             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s'
+             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s', slug'%s'
              WHERE idpost=%s",
                 $titulo,
                 $entradilla,
@@ -83,6 +83,7 @@ if (isset($_GET["id"])) {
                 $file["name"],
                 $esPublico,
                 $altimagen,
+                slugify($titulo),
                 $_GET["id"]
             );
 
