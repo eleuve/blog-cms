@@ -23,7 +23,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Francisco Vidal</a>
+      <a class="navbar-brand" href="index.php">Francisco Vidal</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -74,10 +74,13 @@
               ?>
           </ul>
         <?php
+
+        $offset = mysqli_real_escape_string($con, $offset);
+        $postsPorPag = mysqli_real_escape_string($con, $postsPorPag);
         
         $sql = "SELECT * FROM post WHERE activo = 1 ORDER BY fecha DESC LIMIT $offset, $postsPorPag";
 
-//        die($sql);
+        //die($sql);
 
         $result = mysqli_query($con, $sql);
 

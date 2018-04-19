@@ -39,8 +39,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-5 text-left p-3">
-                <i class="fas fa-home fa-2x"></i><br />
-                <a href="gestion.php">INICIO</a>
+                <a href="gestion.php"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
             </div>
         </div>
         <div class="row">

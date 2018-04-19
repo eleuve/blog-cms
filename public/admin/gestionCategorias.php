@@ -53,17 +53,16 @@
         </div>
         <div class="row">
             <div class="col-5 text-left p-3">
-                <i class="fas fa-home fa-2x"></i><br />
-                <a href="gestion.php">INICIO</a>
+                <a href="gestion.php"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
             </div>
         </div> 
         <div class="row">
-            <div class="col-s-12 col-md-9 mx-auto m-4 text-center" style="background-color: orange;">
+            <div class="col-sm-12 col-md-9 mx-auto m-4 text-center">
                 <h2>Gestión de categorías</h2>
                 <a href="crear-categoria.php" class="btn btn-primary text-center my-3" role="button">CREAR UNA NUEVA CATEGORÍA</a>
                     <?php
-                    // vamos a listar las categorías que hay en la base de datos...
-                    $sql = "SELECT * FROM categoria";
+                    // se listan las categorías que hay en la base de datos
+                    $sql = "SELECT * FROM categoria ORDER BY nombre";
 
                     $result = mysqli_query($con, $sql);
 
@@ -72,8 +71,7 @@
                 <div class="row elemento">
                     <div class="col-9 text-left">
                         <span><?php echo $categoria["fecha"]; ?></span>
-                        <p>Nombre: <strong><?php echo $categoria["nombre"]; ?></strong><br/>
-                            URL: <?php echo $categoria["slug"]; ?></p>
+                        <p>Nombre: <strong><?php echo $categoria["nombre"]; ?></strong></p>
                     </div>
                     <div class="col-3">
                         <div class="row">

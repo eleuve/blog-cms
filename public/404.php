@@ -23,7 +23,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Francisco Vidal</a>
+            <a class="navbar-brand" href="index.php">Francisco Vidal</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -73,7 +73,7 @@
                         <h1 class="card-title">404</h1>
                     </div>
                     <div class="card-footer text-muted">
-                        <p>Página no encontrada, esta siendo redirigido a nuestra home</p>
+                        <p>Página no encontrada, está siendo redirigido a la página de inicio.</p>
                     </div>
                 </div>
 

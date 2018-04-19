@@ -45,15 +45,15 @@ if (isset($_POST["submit"])) {
     $sql = sprintf(
         "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`, `slug`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s', '%s')",
         "NULL",
-        $titulo,
-        $entradilla,
-        $html,
-        $fechaHoy,
-        $idCategoria,
-        $file["name"],
-        $esPublico,
-        $altimagen,
-        slugify($titulo)
+        mres($titulo),
+        mres($entradilla),
+        mres($html),
+        mres($fechaHoy),
+        mres($idCategoria),
+        mres($file["name"]),
+        mres($esPublico),
+        mres($altimagen),
+        mres(slugify($titulo))
     );
 
     // Ejecutamos el SQL con la respectiva conexion ($con)
@@ -115,8 +115,7 @@ if (isset($_POST["submit"])) {
         </div>
         <div class="row">
             <div class="col-s-12 col-md-9 mx-auto mt-4">
-                <i class="fas fa-arrow-alt-circle-left pl-3"></i>
-                <a href="gestionPosts.php" class="confirmacion">VOLVER A POSTS</a>
+                <a href="gestionPosts.php" class="confirmacion"><i class="fas fa-arrow-alt-circle-left pl-3"></i> VOLVER A POSTS</a>
 
                 <div id="form-container" class="container">
                     <form action="crear-post.php" method="post" enctype="multipart/form-data">

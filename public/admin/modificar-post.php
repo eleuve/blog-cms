@@ -7,10 +7,13 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] != true) {
 
 include_once '../../DB/conexion.php';
 
+include_once "slug.php";
+
+
 
 if (isset($_GET["id"])) {
 
-    $sql = "SELECT * from post WHERE idpost = " . $_GET["id"];
+    $sql = "SELECT * from post WHERE idpost = " . mres($_GET["id"]);
     
     // Ejecutamos el SQL con la respectiva conexion ($con)
     $resultadoDelQuery = mysqli_query($con, $sql);
@@ -70,35 +73,37 @@ if (isset($_GET["id"])) {
             file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
 
 
-            // 3) Preparar el SQL que contiene el nuevo file["name"]
+            // 4) Preparar el SQL que contiene el nuevo file["name"] metiéndole seguridad para evitar inyección SQL
 
             $sql = sprintf(
                 "UPDATE post 
              SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s', slug'%s'
              WHERE idpost=%s",
-                $titulo,
-                $entradilla,
-                $html,
-                $idcategoria,
-                $file["name"],
-                $esPublico,
-                $altimagen,
-                slugify($titulo),
-                $_GET["id"]
+                mres($titulo),
+                mres($entradilla),
+                mres($html),
+                mres($idcategoria),
+                mres($file["name"]),
+                mres($esPublico),
+                mres($altimagen),
+                mres(slugify($titulo)),
+                mres($id)
             );
 
         } else {
             $sql = sprintf(
                 "UPDATE post 
-             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, activo=%s, altimagen='%s'
+             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, activo=%s, altimagen='%s', slug'%s'
              WHERE idpost=%s",
-                $titulo,
-                $entradilla,
-                $html,
-                $idcategoria,
-                $esPublico,
-                $altimagen,
-                $_GET["id"]
+                mres($titulo),
+                mres($entradilla),
+                mres($html),
+                mres($idcategoria),
+                mres($esPublico),
+                mres($altimagen),
+                mres(slugify($titulo)),
+                mres($id)
+
             );
         }
 
@@ -157,15 +162,13 @@ if (isset($_GET["id"])) {
      <div class="container-fluid">
         <div class="row">
             <div class="col-5 text-left p-3">
-                <i class="fas fa-home fa-2x"></i><br />
-                <a href="gestion.php">INICIO</a>
+                <a href="gestion.php"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
             </div>
         </div>
 
         <div class="row">
             <div class="col-s-12 col-md-9 mx-auto mt-4">
-                <i class="fas fa-arrow-alt-circle-left pl-3"></i>
-                <a href="gestionPosts.php" class="confirmacion">VOLVER A POSTS</a>
+                <a href="gestionPosts.php" class="confirmacion"><i class="fas fa-arrow-alt-circle-left pl-3"></i> VOLVER A POSTS</a>
                 <div id="form-container" class="container">
                     <form action="modificar-post.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
                         <h2 class="text-center">Editar post "<?=$titulo?>"</h2>

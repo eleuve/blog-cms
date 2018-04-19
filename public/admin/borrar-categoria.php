@@ -10,7 +10,7 @@ include_once '../../DB/conexion.php';
 
 if (isset($_GET["id"])) {
 
-    $sql = "DELETE FROM categoria WHERE idcategoria = " . $_GET["id"];
+    $sql = "DELETE FROM categoria WHERE idcategoria = " . mres($_GET["id"]);
 
     $resultadoDelQuery = mysqli_query($con, $sql);
 

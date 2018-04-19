@@ -20,7 +20,7 @@
 
     if (isset($_GET["id"])) {
 
-        $sql = "SELECT * from categoria WHERE idcategoria = " . $_GET["id"];
+        $sql = "SELECT * from categoria WHERE idcategoria = " . mres($_GET["id"]);
 
         // Ejecutamos el SQL con la respectiva conexion ($con)
         $resultadoDelQuery = mysqli_query($con, $sql);
@@ -36,7 +36,6 @@
             /**
              * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
              */
-            $id = $_GET["id"];
             $nombre = $_POST["nombre"];
             $url = slugify($nombre);
 
@@ -44,9 +43,9 @@
                 "UPDATE categoria 
                 SET nombre='%s', slug='%s'
                 WHERE idcategoria=%s",
-                $nombre,
-                $url,
-                $_GET["id"]
+                mres($nombre),
+                mres($url),
+                mres($_GET["id"])
             );
 
             // Ejecutamos el SQL con la respectiva conexion ($con)
@@ -90,14 +89,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-5 text-left p-3">
-                <i class="fas fa-home fa-2x"></i><br />
-                <a href="gestion.php">INICIO</a>
+                <a href="gestion.php"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
             </div>
         </div>
          <div class="row">
             <div class="col-s-12 col-md-9 mx-auto mt-4">
-                <i class="fas fa-arrow-alt-circle-left pl-3"></i>
-                <a href="gestionCategorias.php" class="confirmacion">VOLVER A CATEGORÍAS</a>
+                <a href="gestionCategorias.php" class="confirmacion"><i class="fas fa-arrow-alt-circle-left pl-3"></i> VOLVER A CATEGORÍAS</a>
 
                 <div id="form-container" class="container">
                     <form action="modificar-categoria.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">

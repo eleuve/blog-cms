@@ -10,7 +10,7 @@ include_once '../../DB/conexion.php';
 
 if (isset($_GET["id"])) {
 
-    $sql = "SELECT imagen from post WHERE idpost = " . $_GET["id"];
+    $sql = "SELECT imagen from post WHERE idpost = " . mres($_GET["id"]);
 
     //ejecutamos la query
     $resultadoDelQuery = mysqli_query($con, $sql);
@@ -25,12 +25,8 @@ if (isset($_GET["id"])) {
     }
     */
 
-    $postId = $_GET["id"];
-    $escapedPostId = mysqli_real_escape_string($con, $postId);
-
-    $sql = "DELETE FROM post WHERE idpost = " . $escapedPostId;
+    $sql = "DELETE FROM post WHERE idpost = " . mres($_GET["id"]);
     
-    // ejecuta la sql com oya sabes
     
     // muestra mensaje: borrado
 

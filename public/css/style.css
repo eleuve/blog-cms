@@ -19,6 +19,11 @@ a {
 	color: #18618e;
 }
 
+a:hover {
+	text-decoration: none;
+	color: #407a9e;
+}
+
 header {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#efefef+0,dcdede+22,d3d5d5+33,cfd1d1+50,cacccc+84,adb1b0+95,8e8e8e+100 */
 background: #efefef; /* Old browsers */

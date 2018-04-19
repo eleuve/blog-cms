@@ -12,6 +12,7 @@
     session_start();
 
     if (isset($_POST["login"])) {
+        //IMPORTANTE: cambiar usuario y contraseña
         $user = "laura";
         $pass = "miPass";
 
@@ -21,13 +22,14 @@
             $_SESSION["login"] = true;
             $_SESSION["username"] = "Francisco";
 
-            // Redirecciona a gestion...
+            // Redirecciona a gestión...
             header('Location: gestion.php');
         } else {
+            //El login es incorrecto
+            header('Location: index.php');
             die('Usuario y/o contraseña incorrecto/s');
         }
     }
-
 
     ?>
 

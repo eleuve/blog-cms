@@ -24,7 +24,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Francisco Vidal</a>
+      <a class="navbar-brand" href="index.php">Francisco Vidal</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -61,7 +61,11 @@
 
        include_once '../DB/conexion.php';
 
-       $sql = "SELECT * FROM post WHERE activo = 1 AND slug = '" . $_GET["slug"] . "'";
+
+       //Evitamos inyección SQL
+       $slug = mysqli_real_escape_string($con, $_GET["slug"]);
+
+       $sql = "SELECT * FROM post WHERE activo = 1 AND slug = '" . $slug . "'";
        $resultado = mysqli_query($con, $sql);
        $post = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
 
@@ -81,7 +85,7 @@
 
        <?php 
 
-       $idcategoria = $post["idcategoria"];
+       $idcategoria = mysqli_real_escape_string($con, $post["idcategoria"]);
 
        $consulta = mysqli_query($con, "SELECT nombre FROM categoria WHERE idcategoria=" . $idcategoria);
 
@@ -116,18 +120,20 @@
         <h5 class="card-header">Categorías</h5>
         <div class="card-body">
           <div class="row">
-            <ul class="list-unstyled mb-0">
-              <?php
+            <div class="col-12">
+              <ul class="list-unstyled mb-0">
+                <?php
                       // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
-              $resultado = mysqli_query($con, "SELECT * FROM categoria");
-              while ($categoria = mysqli_fetch_array(
-                $resultado,MYSQLI_ASSOC)) {
+                $resultado = mysqli_query($con, "SELECT * FROM categoria");
+                while ($categoria = mysqli_fetch_array(
+                  $resultado,MYSQLI_ASSOC)) {
+                    ?>
+                    <li><a href="categoria.php?slug=<?= $categoria["slug"] ?>"><?= $categoria["nombre"] ?></a></li>
+                    <?php
+                  }
                   ?>
-                  <li><a href="categoria.php?slug=<?= $categoria["slug"] ?>"><?= $categoria["nombre"] ?></a></li>
-                  <?php
-                }
-                ?>
-              </ul>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

@@ -5,10 +5,10 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] != true) {
     die();
 }
 
-// Necesitamos la variable que nos facilita conexion de la base de datos: $con
+// Conectamos con la BD, que nos facilita la variable que nos permite la conexion de la base de datos: $con
 require_once "../../DB/conexion.php";
 
-
+//
 require_once "slug.php";
 
 // IF que solo se ejecuta si hay POST enviar (es el submit input)
@@ -23,13 +23,16 @@ if (isset($_POST["enviar"])) {
     $datetimeHoy = new \Datetime("now");
     $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
 
+    //Seguridad -> Se protege lo que va dentro de la base de datos
+
+
     // Preparamos el SQL
     $sql = sprintf(
         "INSERT INTO `categoria` (`idcategoria`, `nombre`, `slug`, `fecha`) VALUES (%s, '%s', '%s', '%s');",
         "NULL",
-        $nombre,
-        $url,
-        $fechaHoy
+        mres($nombre),
+        mres($url),
+        mres($fechaHoy)
     );
 
     // Ejecutamos el SQL con la respectiva conexion ($con)
@@ -85,13 +88,12 @@ if (isset($_POST["enviar"])) {
     <div class="container-fluid">
         <div class="row">
             <div class="col-5 text-left">
-                <i class="fas fa-home fa-2x"></i><br />
-                <a href="gestion.php">MENÚ PRINCIPAL</a>
+                <a href="gestion.php"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
             </div>
         </div>
         <div class="row">
             <div class="col-s-12 col-md-9 mx-auto mt-4">
-                <a href="gestionCategorias.php" class="confirmacion">VOLVER AL MENÚ DE GESTIÓN</a>
+                <a href="gestionCategorias.php" class="confirmacion"><i class="fas fa-arrow-alt-circle-left pl-3"></i> VOLVER A CATEGORÍAS</a>
 
                 <div id="form-container" class="container">
                     <form action="crear-categoria.php" method="post" enctype="multipart/form-data">
