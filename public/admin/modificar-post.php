@@ -77,7 +77,7 @@ if (isset($_GET["id"])) {
 
             $sql = sprintf(
                 "UPDATE post 
-             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s', slug'%s'
+             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s', slug='%s'
              WHERE idpost=%s",
                 mres($titulo),
                 mres($entradilla),
@@ -93,7 +93,7 @@ if (isset($_GET["id"])) {
         } else {
             $sql = sprintf(
                 "UPDATE post 
-             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, activo=%s, altimagen='%s', slug'%s'
+             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, activo=%s, altimagen='%s', slug='%s'
              WHERE idpost=%s",
                 mres($titulo),
                 mres($entradilla),
