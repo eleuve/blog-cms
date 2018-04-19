@@ -29,53 +29,88 @@ if (isset($_POST["submit"])) {
         }
     }
 
-    /** Guardado del archivo en la carpeta /uploads */
-    // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
-    $imageBinaryData = file_get_contents($file["tmp_name"]);
-    // Crea el archivo en uploads, require 2 cosas: nombre de archivo, contenido
-    file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
+    /**
+     * Validacion de datos
+     */
+    $valido = true;
+    $mensajeDeError = "";
 
-    /** Como todo es correcto (validado empty & injections), ejecutamos un INSERT... */
-
-    // Preparamos la fecha para el SQL
-    $datetimeHoy = new \Datetime("now");
-    $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
-
-    // Preparamos el SQL
-    $sql = sprintf(
-        "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`, `slug`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s', '%s')",
-        "NULL",
-        mres($titulo),
-        mres($entradilla),
-        mres($html),
-        mres($fechaHoy),
-        mres($idCategoria),
-        mres($file["name"]),
-        mres($esPublico),
-        mres($altimagen),
-        mres(slugify($titulo))
-    );
-
-    // Ejecutamos el SQL con la respectiva conexion ($con)
-    $resultadoDelQuery = mysqli_query($con, $sql);
-
-    // la variable que esto devuelve no la necesitamos para nada  de momento pero ahi queda... servira para ver si no ha guardado el INSERT,
-    // mostrar un mensaje rollo 'Intentelo de nuevo mas tarde o contacte con el administrador'
-
-    // si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
-    $mensaje = "Post creado correctamente: " . $_POST["titulo"];
-    if (mysqli_errno($con)) {
-        print_r(mysqli_error($con));
-        $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
+    // Id categoria debe ser un numero
+    if (! is_int($idCategoria)) {
+        $valido = false;
+        $mensajeDeError = "Categoria debe ser un número";
+    } else {
+        // @todo Si es numero, hacer otra validacion... Ver que EXISTE en la BBDD
+        // SELECT WHERE CATEGORY... if result === 1... existe, otherwise... $valido = false; and $errorMessage...
     }
 
-    echo "<h1>" . $mensaje . "</h1>";
+    // Que titulo no este vacio
+    if ("" == $titulo) {
+        $valido = false;
+        $mensajeDeError = "Por favor, especifique un título";
+    }
 
-    // Cerramos la conexion porque hemos acabado
-    mysqli_close($con);
+    // Upload debe ser una imagen
+    $typeSportados = [
+        "image/png",
+        "image/jpg",
+        "image/jpeg",
+        "image/gif"
+    ];
+    if (! in_array($file["type"], $typeSportados)) {
+        $valido = false;
+        $mensajeDeError = "Archivo no soportado: ". $file["type"];
+    }
 
-    header("Location: gestionPosts.php", true, 302);
-    die();
+    if ($valido) {
+        /** Guardado del archivo en la carpeta /uploads */
+        // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
+        $imageBinaryData = file_get_contents($file["tmp_name"]);
+        // Crea el archivo en uploads, require 2 cosas: nombre de archivo, contenido
+        file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
+
+        /** Como todo es correcto (validado empty & injections), ejecutamos un INSERT... */
+
+        // Preparamos la fecha para el SQL
+        $datetimeHoy = new \Datetime("now");
+        $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
+
+        // Preparamos el SQL
+        $sql = sprintf(
+            "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`, `slug`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s', '%s')",
+            "NULL",
+            mres($titulo),
+            mres($entradilla),
+            mres($html),
+            mres($fechaHoy),
+            mres($idCategoria),
+            mres($file["name"]),
+            mres($esPublico),
+            mres($altimagen),
+            mres(slugify($titulo))
+        );
+
+        // Ejecutamos el SQL con la respectiva conexion ($con)
+        $resultadoDelQuery = mysqli_query($con, $sql);
+
+        // la variable que esto devuelve no la necesitamos para nada  de momento pero ahi queda... servira para ver si no ha guardado el INSERT,
+        // mostrar un mensaje rollo 'Intentelo de nuevo mas tarde o contacte con el administrador'
+
+        // si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
+        $mensaje = "Post creado correctamente: " . $_POST["titulo"];
+        if (mysqli_errno($con)) {
+            print_r(mysqli_error($con));
+            $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
+        }
+
+        echo "<h1>" . $mensaje . "</h1>";
+
+        // Cerramos la conexion porque hemos acabado
+        mysqli_close($con);
+
+        header("Location: gestionPosts.php", true, 302);
+        die();
+    }
 }
 
 ?>
@@ -119,6 +154,16 @@ if (isset($_POST["submit"])) {
 
                 <div id="form-container" class="container">
                     <form action="crear-post.php" method="post" enctype="multipart/form-data">
+                        <?php
+                            if (isset($valido)) {
+                                if ($valido === false) {
+                                    ?>
+                                    <!-- @todo Dar estilos a la clase form-error -->
+                                    <div class="form-error"><?= $mensajeDeError ?></div>
+                                    <?php
+                                }
+                            }
+                        ?>
                      <h2 class="text-center">Crear post</h2>
                      <div class="row">
                         <div class="col-xsl-12 mx-auto">
