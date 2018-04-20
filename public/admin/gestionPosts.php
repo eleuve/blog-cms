@@ -29,7 +29,7 @@
                         <h1 class="p-4">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
                     <div class="col-4 text-right mt-3">              
-                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                     </div>
                 </div>
             </header>
@@ -73,11 +73,13 @@
                         </div>
                         <div class="col-3">
                             <div class="row">
-                                <div class="col-6 mt-2">
-                                    <a href="modificar-post.php?id=<?php echo $post["idpost"]; ?>" class="btn-modificar btn btn-primary btn-block" role="button"><i class="far fa-edit fa-2x"></i><br />Modificar</a>
+                                <div class="col-12">
+                                    <a href="modificar-post.php?id=<?php echo $post["idpost"]; ?>" class="btn-modificar btn btn-primary btn-block text-left m-1" role="button"><i class="far fa-edit"></i> <span>Modificar</span></a>
                                 </div>
-                                <div class="col-6 mt-2">
-                                    <a href="borrar-post.php?id=<?php echo $post["idpost"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block " role="button"><i class="far fa-trash-alt fa-2x"></i><br />Eliminar</a>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="borrar-post.php?id=<?php echo $post["idpost"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block text-left m-1" role="button"><i class="far fa-trash-alt"></i> <span>Eliminar</span></a>
                                 </div>
                             </div>
                         </div>       

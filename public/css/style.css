@@ -21,7 +21,7 @@ a {
 
 a:hover {
 	text-decoration: none;
-	color: #407a9e;
+	color: #2187c6;
 }
 
 header {
@@ -48,20 +48,41 @@ form input {
 
 
 button[type="submit"]{
-	background-color: #B1cc74;
-	border-color: #B1cc74;
+	background-color: #87b227;
+	border-color: #87b227;
+}
+
+button[type="submit"]:hover{
+	background-color: #678e11;
+	border-color: #678e11; 
+	-webkit-transition: background-color 200ms; /* Safari */
+    transition: background-color 200ms;
+}
+
+.form-error {
+	text-align: center;
+	border: 2px #e58d80 solid;
+	background-color: #f9ddd9;
+	padding: 5px;
+	margin-bottom: 10px;
 }
 
 
 /* botones */
 
 .btn-primary {
-
+	background-color: #18618e;
+	border-color: #18618e;
 }
 
 .btn-primary:hover {
-
+	background-color: #2187c6;
+	border-color: #2187c6; 
+	-webkit-transition: background-color 200ms; /* Safari */
+    transition: background-color 200ms;
 }
+
+
 
 /*listado de categoría*/
 

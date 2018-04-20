@@ -10,11 +10,9 @@ require_once "../../DB/conexion.php";
 require_once "slug.php";
 
 
-// IF que solo se ejecuta si hay POST enviar (es el submit input)
+// IF que solo se ejecuta si hay POST enviar 
 if (isset($_POST["submit"])) {
-    /**
-     * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
-     */
+
     $idCategoria = $_POST["categoria"];
     $titulo = $_POST["titulo"];
     $entradilla = $_POST["entradilla"];
@@ -30,27 +28,18 @@ if (isset($_POST["submit"])) {
     }
 
     /**
-     * Validacion de datos
+     * Validación de datos del formulario
      */
     $valido = true;
     $mensajeDeError = "";
 
-    // Id categoria debe ser un numero
-    if (! is_int($idCategoria)) {
-        $valido = false;
-        $mensajeDeError = "Categoria debe ser un número";
-    } else {
-        // @todo Si es numero, hacer otra validacion... Ver que EXISTE en la BBDD
-        // SELECT WHERE CATEGORY... if result === 1... existe, otherwise... $valido = false; and $errorMessage...
-    }
-
-    // Que titulo no este vacio
+    // El título no puede estar vacío
     if ("" == $titulo) {
         $valido = false;
-        $mensajeDeError = "Por favor, especifique un título";
+        $mensajeDeError = "Por favor, especifique un título.";
     }
 
-    // Upload debe ser una imagen
+    // El archivo subido tiene que ser una imagen
     $typeSportados = [
         "image/png",
         "image/jpg",
@@ -59,23 +48,24 @@ if (isset($_POST["submit"])) {
     ];
     if (! in_array($file["type"], $typeSportados)) {
         $valido = false;
-        $mensajeDeError = "Archivo no soportado: ". $file["type"];
+        $mensajeDeError = "Archivo no soportado. Por favor, suba una imagen de tipo .jpg .jpeg .png o .gif";
     }
 
+    // Si todos los datos introducidos son válidos...
     if ($valido) {
         /** Guardado del archivo en la carpeta /uploads */
-        // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
-        $imageBinaryData = file_get_contents($file["tmp_name"]);
-        // Crea el archivo en uploads, require 2 cosas: nombre de archivo, contenido
-        file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
 
-        /** Como todo es correcto (validado empty & injections), ejecutamos un INSERT... */
+        // El archivo se sube a una ruta temporal de PHP así que leemos la ruta
+        $imageBinaryData = file_get_contents($file["tmp_name"]);
+
+        // Creamos el archivo en uploads, require 2 cosas: nombre de archivo y contenido
+        file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
 
         // Preparamos la fecha para el SQL
         $datetimeHoy = new \Datetime("now");
         $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
 
-        // Preparamos el SQL
+        // Preparamos el SQL (mres es una función que está en conexion.php y sirve para evitar inyecciones SQL en la BD)
         $sql = sprintf(
             "INSERT INTO `post` (`idpost`, `titulo`, `entradilla`, `contenido`, `fecha`, `idcategoria`, `imagen`, `activo`, `altimagen`, `slug`) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s, '%s', '%s')",
             "NULL",
@@ -93,21 +83,19 @@ if (isset($_POST["submit"])) {
         // Ejecutamos el SQL con la respectiva conexion ($con)
         $resultadoDelQuery = mysqli_query($con, $sql);
 
-        // la variable que esto devuelve no la necesitamos para nada  de momento pero ahi queda... servira para ver si no ha guardado el INSERT,
-        // mostrar un mensaje rollo 'Intentelo de nuevo mas tarde o contacte con el administrador'
-
-        // si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
+        // Si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
         $mensaje = "Post creado correctamente: " . $_POST["titulo"];
         if (mysqli_errno($con)) {
             print_r(mysqli_error($con));
-            $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
+            $mensaje = "Inténtelo de nuevo más tarde.";
         }
 
         echo "<h1>" . $mensaje . "</h1>";
 
-        // Cerramos la conexion porque hemos acabado
+        // Cerramos la conexión porque hemos acabado
         mysqli_close($con);
 
+        //Cuando se haya creado un post nos lleva al menú de gestión
         header("Location: gestionPosts.php", true, 302);
         die();
     }
@@ -133,7 +121,7 @@ if (isset($_POST["submit"])) {
                         <h1 class="p-4">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
                     <div class="col-4 text-right mt-3">
-                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                     </div>
                 </div>
             </header>
@@ -144,8 +132,7 @@ if (isset($_POST["submit"])) {
     <div class="container-fluid">
         <div class="row">
             <div class="col-5 text-left p-3">
-                <i class="fas fa-home fa-2x"></i><br />
-                <a href="gestion.php">INICIO</a>
+                <a href="gestion.php" class="confirmacion"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
             </div>
         </div>
         <div class="row">
@@ -158,7 +145,6 @@ if (isset($_POST["submit"])) {
                             if (isset($valido)) {
                                 if ($valido === false) {
                                     ?>
-                                    <!-- @todo Dar estilos a la clase form-error -->
                                     <div class="form-error"><?= $mensajeDeError ?></div>
                                     <?php
                                 }
@@ -184,15 +170,15 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="form-group">
                                 <label for="titulo">Título</label>
-                                <input class="form-control" type="text" name="titulo" id="titulo">
+                                <input class="form-control" type="text" name="titulo" id="titulo" required>
                             </div>
                             <div class="form-group">
                                 <label for="entradilla">Entradilla</label>
-                                <input class="form-control" type="text" name="entradilla" id="entradilla">
+                                <input class="form-control" type="text" name="entradilla" id="entradilla" required>
                             </div>
                             <div class="form-group">
                                 <label for="imagen">Imagen</label>
-                                <input class="form-control" type="file" name="imagen" id="imagen"/>
+                                <input class="form-control" type="file" name="imagen" id="imagen" required/>
                                 <small>El tamaño recomendado es de 900x300px.</small>
                             </div>
                             <div class="form-group">
@@ -203,7 +189,7 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="form-group">
                                 <label for="entrada">Entrada</label>
-                                <textarea class="form-control" name="entrada" id="entrada">                   
+                                <textarea class="form-control" name="entrada" id="entrada" required>                   
                                 </textarea>
                             </div>
                             <div class="form-group">
@@ -225,6 +211,8 @@ if (isset($_POST["submit"])) {
 <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
 
 <script type="text/javascript">
+    //Esto nos pide confirmación si le damos a volver atrás sin terminar de crear el post
+
     var elemento = document.getElementsByClassName('confirmacion');
     var confirmar = function (e) {
         if (!confirm('¿Seguro que quieres volver atrás? \n Los cambios que hayas hecho no se guardarán.')) e.preventDefault();

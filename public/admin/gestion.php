@@ -45,10 +45,10 @@
 					</div>
 					<div class="col-s-12 col-md-7 accion d-flex align-items-center">
 						<div class="row">
-							<div class="col-s-12 col-md-6 my-2">
+							<div class="col-s-12 col-md-6 my-2 text-center" >
 								<a href="gestionPosts.php" class="btn btn-primary btn-lg align-self-center" role="button">Gestionar posts</a>
 							</div>
-							<div class="col-s-12 col-md-6 my-2">	
+							<div class="col-s-12 col-md-6 my-2 text-center">	
 								<a href="gestionCategorias.php" class="btn btn-primary btn-lg" role="button">Gestionar categorías</a>
 							</div>	
 						</div>

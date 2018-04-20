@@ -19,11 +19,10 @@
 </head>
 
 <body>
-
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="index.php">Francisco Vidal</a>
+      <a class="navbar-brand" href="index.php">CoachingAbierto</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -98,7 +97,18 @@
               <p class="card-text"><?php echo $post["entradilla"]; ?></p>
             </div>
             <div class="card-footer text-muted">
-              Publicado <?php echo $formatoFecha ?>
+              <?php 
+
+               $idcategoria = $post["idcategoria"];
+
+               $consulta = mysqli_query($con, "SELECT * FROM categoria WHERE idcategoria=" . mres($idcategoria));
+
+               $row = $consulta->fetch_assoc();
+
+               ?>
+
+              <span>Publicado <?php echo $formatoFecha ?></span>
+              <span>Categoría  <a href="categoria.php?slug=<?= $row["slug"] ?>"><?php echo $row["nombre"]; ?></a></span>
             </div>
           </div>
           <?php
@@ -139,7 +149,7 @@
               <div class="col-12">
                 <ul class="list-unstyled mb-0">
                   <?php
-                      // Consultamos las categorias e iteramos sobre ellas para imprimir los <options> pertinentes.
+                      // Consultamos las categorías 
                   $resultado = mysqli_query($con, "SELECT * FROM categoria");
                   while ($categoria = mysqli_fetch_array(
                     $resultado,MYSQLI_ASSOC)) {
@@ -173,7 +183,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Francisco Vidal 2018</p>
+        <p class="m-0 text-center text-white">Copyright &copy; CoachingAbierto 2018</p>
       </div>
       <!-- /.container -->
     </footer>

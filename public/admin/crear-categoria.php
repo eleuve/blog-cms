@@ -8,53 +8,61 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] != true) {
 // Conectamos con la BD, que nos facilita la variable que nos permite la conexion de la base de datos: $con
 require_once "../../DB/conexion.php";
 
-//
+//Nos sirve para transformar el nombre en una cadena para la url
 require_once "slug.php";
 
 // IF que solo se ejecuta si hay POST enviar (es el submit input)
 if (isset($_POST["enviar"])) {
-    /**
-     * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
-     */
     $nombre = $_POST["nombre"];
     $url = slugify($nombre);
 
-    // Preparamos la fecha para el SQL
-    $datetimeHoy = new \Datetime("now");
-    $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
+    /**
+     * Validación de datos del formulario
+     */
+    $valido = true;
+    $mensajeDeError = "";
 
-    //Seguridad -> Se protege lo que va dentro de la base de datos
-
-
-    // Preparamos el SQL
-    $sql = sprintf(
-        "INSERT INTO `categoria` (`idcategoria`, `nombre`, `slug`, `fecha`) VALUES (%s, '%s', '%s', '%s');",
-        "NULL",
-        mres($nombre),
-        mres($url),
-        mres($fechaHoy)
-    );
-
-    // Ejecutamos el SQL con la respectiva conexion ($con)
-    $resultadoDelQuery = mysqli_query($con, $sql);
-
-    // la variable que esto devuelve no la necesitamos para nada  de momento pero ahi queda... servira para ver si no ha guardado el INSERT,
-    // mostrar un mensaje rollo 'Intentelo de nuevo mas tarde o contacte con el administrador'
-
-    // si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
-    $mensaje = "Categoría creada correctamente: " . $_POST["nombre"];
-    if (mysqli_errno($con)) {
-        print_r(mysqli_error($con));
-        $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
+    // El nombre no puede estar vacío
+    if ("" == $nombre) {
+        $valido = false;
+        $mensajeDeError = "Por favor, especifique una categoría.";
     }
 
-    echo "<h1>" . $mensaje . "</h1>";
+    // Si los datos introducidos en el formulario son válidos
+    if ($valido) {
 
-    // Cerramos la conexion porque hemos acabado
-    mysqli_close($con);
+        // Preparamos la fecha para el SQL
+        $datetimeHoy = new \Datetime("now");
+        $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
 
-    header("Location: gestionCategorias.php", true, 302);
-    die();
+        // Preparamos el SQL
+        $sql = sprintf(
+            "INSERT INTO `categoria` (`idcategoria`, `nombre`, `slug`, `fecha`) VALUES (%s, '%s', '%s', '%s');",
+            "NULL",
+            mres($nombre),
+            mres($url),
+            mres($fechaHoy)
+        );
+
+        // Ejecutamos el SQL con la respectiva conexion ($con)
+        $resultadoDelQuery = mysqli_query($con, $sql);
+
+
+        // Se muestran mensajes si ha ido bien o si ha habido algún error
+        $mensaje = "Categoría creada correctamente: " . $_POST["nombre"];
+        if (mysqli_errno($con)) {
+            print_r(mysqli_error($con));
+            $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
+        }
+
+        echo "<h1>" . $mensaje . "</h1>";
+
+        // Cerramos la conexión porque hemos acabado
+        mysqli_close($con);
+
+        header("Location: gestionCategorias.php", true, 302);
+        die();
+    }
 }
 
 ?>
@@ -88,7 +96,7 @@ if (isset($_POST["enviar"])) {
     <div class="container-fluid">
         <div class="row">
             <div class="col-5 text-left">
-                <a href="gestion.php"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
+                <a href="gestion.php" class="confirmacion"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
             </div>
         </div>
         <div class="row">
@@ -97,6 +105,15 @@ if (isset($_POST["enviar"])) {
 
                 <div id="form-container" class="container">
                     <form action="crear-categoria.php" method="post" enctype="multipart/form-data">
+                        <?php
+                            if (isset($valido)) {
+                                if ($valido === false) {
+                                    ?>
+                                    <div class="form-error"><?= $mensajeDeError ?></div>
+                                    <?php
+                                }
+                            }
+                        ?>
                         <h2 class="text-center">Crear categoría</h2>
                         <div class="row">
                             <div class="col-xsl-12 mx-auto">

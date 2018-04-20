@@ -59,74 +59,102 @@ if (isset($_GET["id"])) {
             }
         }
 
+         /**
+        * Validación de datos del formulario
+        */
+        $valido = true;
+        $mensajeDeError = "";
+
+        // El título no puede estar vacío
+        if ("" == $titulo) {
+            $valido = false;
+            $mensajeDeError = "Por favor, especifique un título.";
+        }
+
+        // El archivo subido tiene que ser una imagen
+        $typeSportados = [
+            "image/png",
+            "image/jpg",
+            "image/jpeg",
+            "image/gif"
+        ];
+        if (! in_array($file["type"], $typeSportados)) {
+            $valido = false;
+            $mensajeDeError = "Archivo no soportado. Por favor, suba una imagen de tipo .jpg .jpeg .png o .gif";
+        }
+
+        if ($valido) {
+
         // Si hay nuevo archivo
-        if ($file["size"] > 0) {
-            // 1) Borrar el anterior archivo con unlink()
-            unlink('../uploads/' . $fileNameABorrarSiHayNuevo);
+            if ($file["size"] > 0) {
+                // 1) Borrar el anterior archivo con unlink()
+                unlink('../uploads/' . $fileNameABorrarSiHayNuevo);
 
-            // 2) Guardar el nuevo archivo en /uploads
+                // 2) Guardar el nuevo archivo en /uploads
 
-            /** Guardado del archivo en la carpeta /uploads */
-            // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
-            $imageBinaryData = file_get_contents($file["tmp_name"]);
-            // Crea el archivo en uploads, require 2 cosas: nombre de archivo, contenido
-            file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
+                /** Guardado del archivo en la carpeta /uploads */
+                // El archivo se sube a una ruta temporal de PHP (a saber cual), no hay funcion MOVE en php, asi que leemos el contenido del archivo...
+                $imageBinaryData = file_get_contents($file["tmp_name"]);
+                // 3) Crea el archivo en uploads, require 2 cosas: nombre de archivo, contenido
+                file_put_contents('../uploads/' . $file["name"], $imageBinaryData);
 
 
-            // 4) Preparar el SQL que contiene el nuevo file["name"] metiéndole seguridad para evitar inyección SQL
+                // 4) Preparar el SQL que contiene el nuevo file["name"] metiéndole seguridad para evitar inyección SQL
 
-            $sql = sprintf(
-                "UPDATE post 
-             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s', slug='%s'
-             WHERE idpost=%s",
-                mres($titulo),
-                mres($entradilla),
-                mres($html),
-                mres($idcategoria),
-                mres($file["name"]),
-                mres($esPublico),
-                mres($altimagen),
-                mres(slugify($titulo)),
-                mres($id)
-            );
+                $sql = sprintf(
+                    "UPDATE post 
+                 SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, imagen='%s', activo=%s, altimagen='%s', slug='%s'
+                 WHERE idpost=%s",
+                    mres($titulo),
+                    mres($entradilla),
+                    mres($html),
+                    mres($idcategoria),
+                    mres($file["name"]),
+                    mres($esPublico),
+                    mres($altimagen),
+                    mres(slugify($titulo)),
+                    mres($id)
+                );
 
-        } else {
-            $sql = sprintf(
-                "UPDATE post 
-             SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, activo=%s, altimagen='%s', slug='%s'
-             WHERE idpost=%s",
-                mres($titulo),
-                mres($entradilla),
-                mres($html),
-                mres($idcategoria),
-                mres($esPublico),
-                mres($altimagen),
-                mres(slugify($titulo)),
-                mres($id)
+            } else {
+                $sql = sprintf(
+                    "UPDATE post 
+                 SET titulo='%s', entradilla='%s', contenido='%s', idcategoria=%s, activo=%s, altimagen='%s', slug='%s'
+                 WHERE idpost=%s",
+                    mres($titulo),
+                    mres($entradilla),
+                    mres($html),
+                    mres($idcategoria),
+                    mres($esPublico),
+                    mres($altimagen),
+                    mres(slugify($titulo)),
+                    mres($id)
 
-            );
+                );
+            }
+
+
+            // Ejecutamos el SQL con la respectiva conexion ($con)
+            $resultadoDelQuery = mysqli_query($con, $sql);
+
+            // la variable que esto devuelve no la necesitamos para nada  de momento pero ahi queda... servira para ver si no ha guardado el INSERT,
+            // mostrar un mensaje rollo 'Intentelo de nuevo mas tarde o contacte con el administrador'
+
+            // Si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
+            $mensaje = "Post modificado correctamente: " . $_POST["titulo"];
+            if (mysqli_errno($con)) {
+                print_r(mysqli_error($con));
+                $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
+            }
+
+            echo "<h1>" . $mensaje . "</h1>";
+
+            // Cerramos la conexión porque hemos acabado
+            mysqli_close($con);
+
+            header("Location: gestionPosts.php", true, 302);
+            die();
         }
-
-        // Ejecutamos el SQL con la respectiva conexion ($con)
-        $resultadoDelQuery = mysqli_query($con, $sql);
-
-        // la variable que esto devuelve no la necesitamos para nada  de momento pero ahi queda... servira para ver si no ha guardado el INSERT,
-        // mostrar un mensaje rollo 'Intentelo de nuevo mas tarde o contacte con el administrador'
-
-        // si hay error de cualquier tipo, mostramos un mensaje, en caso contrario mostramos otro
-        $mensaje = "Post modificado correctamente: " . $_POST["titulo"];
-        if (mysqli_errno($con)) {
-            print_r(mysqli_error($con));
-            $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
-        }
-
-        echo "<h1>" . $mensaje . "</h1>";
-
-        // Cerramos la conexion porque hemos acabado
-        mysqli_close($con);
-
-        header("Location: gestionPosts.php", true, 302);
-        die();
     }
 }
 
@@ -162,7 +190,7 @@ if (isset($_GET["id"])) {
      <div class="container-fluid">
         <div class="row">
             <div class="col-5 text-left p-3">
-                <a href="gestion.php"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
+                <a href="gestion.php"  class="confirmacion"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
             </div>
         </div>
 
@@ -171,6 +199,15 @@ if (isset($_GET["id"])) {
                 <a href="gestionPosts.php" class="confirmacion"><i class="fas fa-arrow-alt-circle-left pl-3"></i> VOLVER A POSTS</a>
                 <div id="form-container" class="container">
                     <form action="modificar-post.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
+                        <?php
+                            if (isset($valido)) {
+                                if ($valido === false) {
+                                    ?>
+                                    <div class="form-error"><?= $mensajeDeError ?></div>
+                                    <?php
+                                }
+                            }
+                        ?>
                         <h2 class="text-center">Editar post "<?=$titulo?>"</h2>
                         <div class="row">
                             <div class="col-xsl-12 mx-auto">

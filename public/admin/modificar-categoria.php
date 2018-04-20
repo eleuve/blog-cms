@@ -33,41 +33,53 @@
 
         // IF que solo se ejecuta si hay POST modificar (es el submit input)
         if (isset($_POST["modificar"])) {
-            /**
-             * @todo Asegurarnos que las 6 variables siguientes son aptas, es decir, not-empty o... con valores raros o SQL code (injection...)
-             */
+
             $nombre = $_POST["nombre"];
             $url = slugify($nombre);
+            
+            /**
+             * Validacion de datos del formulario
+             */
+            $valido = true;
+            $mensajeDeError = "";
 
-            $sql = sprintf(
-                "UPDATE categoria 
-                SET nombre='%s', slug='%s'
-                WHERE idcategoria=%s",
-                mres($nombre),
-                mres($url),
-                mres($_GET["id"])
-            );
-
-            // Ejecutamos el SQL con la respectiva conexion ($con)
-            $resultadoDelQuery = mysqli_query($con, $sql);
-
-
-            // Se muestran mensajes si ha ido bien o si ha habido algún error
-            $mensaje = "Categoría modificada correctamente: " . $_POST["nombre"];
-            if (mysqli_errno($con)) {
-                print_r(mysqli_error($con));
-                $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
+            // El nombre no puede estar vacío
+            if ("" == $nombre) {
+                $valido = false;
+                $mensajeDeError = "Por favor, especifique una categoría.";
             }
 
-            echo "<h1>" . $mensaje . "</h1>";
+            if ($valido) {
 
-            // Cerramos la conexion porque hemos acabado
-            mysqli_close($con);
+                $sql = sprintf(
+                    "UPDATE categoria 
+                    SET nombre='%s', slug='%s'
+                    WHERE idcategoria=%s",
+                    mres($nombre),
+                    mres($url),
+                    mres($_GET["id"])
+                );
 
-            header("Location: gestionCategorias.php", true, 302);
-            die();
+                // Ejecutamos el SQL con la respectiva conexion ($con)
+                $resultadoDelQuery = mysqli_query($con, $sql);
+
+
+                //
+                $mensaje = "Categoría modificada correctamente: " . $_POST["nombre"];
+                if (mysqli_errno($con)) {
+                    print_r(mysqli_error($con));
+                    $mensaje = "Inténtelo de nuevo más tarde o contacte con el administrador.";
+                }
+
+                echo "<h1>" . $mensaje . "</h1>";
+
+                // Cerramos la conexion porque hemos acabado
+                mysqli_close($con);
+
+                header("Location: gestionCategorias.php", true, 302);
+                die();
+            }
         }
-
     }
     ?>
 </head>
@@ -80,7 +92,7 @@
                         <h1 class="p-4">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
                     <div class="col-4 text-right mt-3">          
-                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                     </div>
                 </div>
             </header>
@@ -89,7 +101,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-5 text-left p-3">
-                <a href="gestion.php"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
+                <a href="gestion.php" class="confirmacion"><i class="fas fa-home fa-2x"></i><br />INICIO</a>
             </div>
         </div>
          <div class="row">
@@ -98,6 +110,15 @@
 
                 <div id="form-container" class="container">
                     <form action="modificar-categoria.php?id=<?= $_GET["id"]; ?>" method="post" enctype="multipart/form-data">
+                        <?php
+                            if (isset($valido)) {
+                                if ($valido === false) {
+                                    ?>
+                                    <div class="form-error"><?= $mensajeDeError ?></div>
+                                    <?php
+                                }
+                            }
+                        ?>
                         <h2 class="text-center">Editar categoría "<?=$nombre?>"</h2>
                         <div class="row">
                             <div class="col-xsl-12 mx-auto">

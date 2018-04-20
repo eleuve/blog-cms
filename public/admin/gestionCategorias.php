@@ -32,7 +32,7 @@
                         <h1 class="p-4">Bienvenido, <?= $_SESSION["username"] ?></h1>
                     </div>
                     <div class="col-4 text-right mt-3">                  
-                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+                        <a href="logout.php" class="align-middle"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                     </div>
                 </div>
             </header>
@@ -57,7 +57,7 @@
             </div>
         </div> 
         <div class="row">
-            <div class="col-sm-12 col-md-9 mx-auto m-4 text-center">
+            <div class="col-sm-12 col-md-7 mx-auto m-4 text-center">
                 <h2>Gestión de categorías</h2>
                 <a href="crear-categoria.php" class="btn btn-primary text-center my-3" role="button">CREAR UNA NUEVA CATEGORÍA</a>
                     <?php
@@ -81,7 +81,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <a href="borrar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="confirmacion btn-borrar btn btn-primary btn-block text-left m-1" role="button"><i class="far fa-trash-alt"></i> Eliminar</a>
+                                <a href="borrar-categoria.php?id=<?php echo $categoria["idcategoria"]; ?>" class="confirmacion btn btn-primary btn-block text-left m-1" role="button"><i class="far fa-trash-alt"></i> Eliminar</a>
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="index.php">Francisco Vidal</a>
+      <a class="navbar-brand" href="index.php">CoachingAbierto</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -56,15 +56,19 @@
       <!-- Blog Entries Column -->
       <div class="col-md-8">
 
-        <h1 class="my-4">Entradas
-          <small>Secondary Text</small>
-        </h1>
-
-        <!-- Blog Post -->
         <?php
 
         include_once '../DB/conexion.php';
 
+        ?>
+
+        <h1 class="my-4">Categoría
+          <small>"<?=$_GET["slug"]?>"</small>
+        </h1>
+
+        <!-- Blog Post -->
+        
+        <?php
 
         if (isset($_GET["slug"])) {
 
@@ -182,7 +186,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Francisco Vidal 2018</p>
+        <p class="m-0 text-center text-white">Copyright &copy; CoachingAbierto 2018</p>
       </div>
       <!-- /.container -->
     </footer>

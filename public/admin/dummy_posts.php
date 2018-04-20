@@ -8,7 +8,7 @@ require_once "slug.php";
 $datetimeHoy = new \Datetime("now");
 $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
 
-// Funcion que devuelve un SQL que solo difiere el titulo
+// Función que devuelve un SQL que solo cambia el título
 $crearSql = function($titulo) {
     $datetimeHoy = new \Datetime("now");
     $fechaHoy = date("Y-m-d H:i:s", $datetimeHoy->getTimestamp());
@@ -21,7 +21,7 @@ $crearSql = function($titulo) {
         'DUMMY FAKE POST',
         'DUMMY FAKE POST, DUMMY FAKE POST, DUMMY FAKE POST, DUMMY FAKE POST, DUMMY FAKE POST, DUMMY FAKE POST, DUMMY FAKE POST...',
         $fechaHoy,
-        38, // fresas
+        38, // categoría fresas
         'DUMMY_FILENAME.jpg',
         true,
         "DUMMY ALT IMAGE",
@@ -42,4 +42,4 @@ for($cont = 0; $cont <= $totalPosts; $cont++) {
 // Cerramos la conexion porque hemos acabado
 mysqli_close($con);
 
-die($totalPosts ." posts created!");
+die($totalPosts ." Posts creados.");

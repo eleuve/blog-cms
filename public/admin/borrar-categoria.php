@@ -27,7 +27,7 @@ if (isset($_GET["id"])) {
 
     $_SESSION["flash_message"] = $mensaje;
 
-    // Cerramos la conexion porque hemos acabado
+    // Cerramos la conexión porque hemos acabado
     mysqli_close($con);
 
 }

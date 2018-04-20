@@ -37,8 +37,8 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <header class="col-12" id=>
-                <h1 class="text-center">Gestor de contenidos del blog</h1>
+            <header class="col-12">
+                <h1 class="text-center p-4">Gestor de contenidos del blog</h1>
             </header>
         </div>
         <div class="row">
@@ -59,10 +59,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        
-    </script>
 </body>
 </html>
 

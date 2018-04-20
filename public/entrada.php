@@ -24,7 +24,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="index.php">Francisco Vidal</a>
+      <a class="navbar-brand" href="index.php">CoachingAbierto</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -85,9 +85,9 @@
 
        <?php 
 
-       $idcategoria = mysqli_real_escape_string($con, $post["idcategoria"]);
+       $idcategoria = $post["idcategoria"];
 
-       $consulta = mysqli_query($con, "SELECT nombre FROM categoria WHERE idcategoria=" . $idcategoria);
+       $consulta = mysqli_query($con, "SELECT * FROM categoria WHERE idcategoria=" . mres($idcategoria));
 
        $row = $consulta->fetch_assoc();
 
@@ -97,7 +97,7 @@
        ?>
 
        <!-- Date/Time -->
-       <p>Publicado <?php echo $formatoFecha ?> | Categoría  <?php echo $row["nombre"]; ?></p>
+       <p>Publicado <?php echo $formatoFecha ?> | Categoría  <a href="categoria.php?slug=<?= $row["slug"] ?>"><?php echo $row["nombre"]; ?></a></p>
 
        <hr>
 
@@ -140,20 +140,23 @@
 
         <!-- Side Widget -->
         <div class="card my-4">
-          <h5 class="card-header">Otras entradas</h5>
+          <h5 class="card-header">Últimas entradas...</h5>
           <div class="card-body">
+            <?php
+
+            $resultado = mysqli_query($con, "SELECT * FROM post WHERE NOT idpost=" . mres($post["idpost"]) . " ORDER BY fecha DESC LIMIT 5");
+                while ($entradalateral = mysqli_fetch_array(
+                  $resultado,MYSQLI_ASSOC)) {
+                    ?>
             <div class="entrada-lateral">
-              <p><strong>Título</strong></p>
-              <img src="uploads/mapa.png" alt="mapaa" class="img-fluid rounded" style="max-height: 200px;">
-              <p>Entradillaaa muy interesante bla bla bla sobre el cambio climático.</p>
-              <hr>    
+              <p><strong><?=$entradalateral["titulo"]?></strong></p>
+              <img src="uploads/<?=$entradalateral["imagen"]?>" alt="<?=$entradalateral["altimagen"]?>" class="img-fluid rounded" style="max-height: 200px; max-width: ">
+              <p><?=$entradalateral["entradilla"]?></p>
+              <hr>
             </div>
-            <div class="entrada-lateral">
-              <p><strong>Título</strong></p>
-              <img src="uploads/mapa.png" alt="mapaa" class="img-fluid rounded" style="max-height: 200px;">
-              <p>Entradillaaa muy interesante bla bla bla sobre el cambio climático.</p>
-              <hr>    
-            </div>
+            <?php
+            }
+            ?>  
           </div>
         </div>
 
@@ -168,7 +171,7 @@
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Francisco Vidal 2018</p>
+      <p class="m-0 text-center text-white">Copyright &copy; CoachingAbierto 2018</p>
     </div>
     <!-- /.container -->
   </footer>
